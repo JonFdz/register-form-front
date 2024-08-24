@@ -24,8 +24,10 @@
     ],
 	"baseUrl": "./src",
 	"paths": {
+	  "@models/*": ["app/modules/content/models/*"],
 	  "@users/*": ["app/modules/content/components/users/*"],
 	  "@activities/*": ["app/modules/content/components/activities/*"],
+	  "@inscriptions/*": ["app/modules/content/components/inscriptions/*"],
 	}
   },
   "angularCompilerOptions": {
