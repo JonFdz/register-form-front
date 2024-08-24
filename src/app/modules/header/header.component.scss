@@ -1,0 +1,42 @@
+@import 'styles/_variables.scss';
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background-color: $secondary-color;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+    .logo img {
+        background-color: #fff;
+        height: 50px;
+        border-radius: 15px;
+        padding: 5px;
+        transition: transform 0.3s;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+
+    .nav {
+        display: flex;
+        gap: 20px;
+
+        .nav-link {
+            color: $primary-color;
+            text-decoration: none;
+            font-weight: bold;
+            padding-bottom: 2px;
+            transition: color 0.3s, padding-bottom 0.3s, border-bottom 0.3s;
+
+            &:hover {
+                color: lighten($primary-color, 10%);
+                padding-bottom: 0; // Reduce el espacio para el subrayado
+                border-bottom: 5px solid lighten($primary-color, 10%);
+            }
+        }
+    }
+}
