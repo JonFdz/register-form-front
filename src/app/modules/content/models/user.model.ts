@@ -7,4 +7,5 @@ export interface User {
 	birthplace: string;
 	phone: number;
 	email: string;
+	abilities: string;
 }
