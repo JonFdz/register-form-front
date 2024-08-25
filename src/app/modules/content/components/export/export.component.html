@@ -1,3 +1,62 @@
-<div>
-	<button (click)="exportFile()">Exportar Archivo</button>
+<div class="container mt-5">
+    <div class="mb-3">
+        <img
+            src="assets/xic_banner_tra.jpg"
+            class="rounded border border-2 w-100"
+            alt="Banner plucitario de inscripciones XIC"
+        />
+    </div>
+    <h1 id="title" class="p-2 ms-3 d-flex justify-content-center">
+        Exportar Datos
+    </h1>
+    <form class="row g-3">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="col-md-4">
+                <label for="exportType" class="form-label"
+                    >Tipo de Exportación</label
+                >
+                <select
+                    id="exportType"
+                    class="form-select"
+                    [(ngModel)]="exportType"
+                    name="exportType"
+                >
+                    <option value="inscriptions">Inscripciones</option>
+                    <option value="activities">Actividades</option>
+                    <option value="users">Usuarios</option>
+                </select>
+            </div>
+        </div>
+        <div *ngIf="exportType === 'inscriptions'" class="w-100"></div>
+        <!-- Clear row -->
+        <div *ngIf="exportType === 'inscriptions'" class="col-md-6">
+            <label for="startDate" class="form-label">Fecha de Inicio</label>
+            <input
+                type="date"
+                class="form-control"
+                id="startDate"
+                [(ngModel)]="startDate"
+                name="startDate"
+            />
+        </div>
+        <div *ngIf="exportType === 'inscriptions'" class="col-md-6">
+            <label for="endDate" class="form-label">Fecha de Fin</label>
+            <input
+                type="date"
+                class="form-control"
+                id="endDate"
+                [(ngModel)]="endDate"
+                name="endDate"
+            />
+        </div>
+        <div class="col-12 text-center">
+            <button
+                type="button"
+                class="btn btn-primary"
+                (click)="exportFile()"
+            >
+                Exportar Archivo
+            </button>
+        </div>
+    </form>
 </div>
