@@ -1,0 +1,51 @@
+<div class="container mt-5">
+    <div class="mb-3">
+        <img
+            src="assets/xic_banner_tra.jpg"
+            class="rounded border border-2 w-100"
+            alt="Banner plucitario de inscripciones XIC"
+        />
+    </div>
+    <h1 id="title" class="p-2 ms-3 d-flex justify-content-center">
+        Lista de Intercambios XIC 2024-2025
+    </h1>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <button class="btn btn-primary me-3" (click)="addNewActivity()">
+            Añadir Nueva Entrada
+        </button>
+        <div class="d-flex">
+            <i class="bi bi-funnel-fill me-2"></i>
+            <!-- Icono de filtro, asegúrate de incluir Bootstrap Icons -->
+            <label for="dayFilter" class="filter me-2">Filtrar por Día:</label>
+            <select
+                id="dayFilter"
+                class="form-select"
+                [(ngModel)]="selectedDay"
+                (change)="filterActivities()"
+                style="width: auto"
+            >
+                <option value="">Todos</option>
+                <option value="Lunes">Lunes</option>
+                <option value="Martes">Martes</option>
+                <option value="Miércoles">Miércoles</option>
+                <option value="Jueves">Jueves</option>
+                <option value="Viernes">Viernes</option>
+                <option value="Sábado">Sábado</option>
+                <option value="Domingo">Domingo</option>
+            </select>
+        </div>
+    </div>
+    <ul class="list-group">
+		<li *ngFor="let activity of filteredActivities" class="list-group-item">
+			<div class="d-flex justify-content-between align-items-center">
+				<div>
+					<strong>Actividad:</strong> {{ activity.activity_name }} |
+					<strong>Instructor:</strong> {{ activity.instructor }} |
+					<strong>Día:</strong> {{ activity.day }} |
+					<strong>Hora:</strong> {{ activity.hour }}
+				</div>
+			</div>
+		</li>
+    </ul>
+</div>
