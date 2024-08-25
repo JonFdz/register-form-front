@@ -12,9 +12,6 @@ import { User } from '@models/user.model';
 import { Activity } from '@models/activity.model';
 import { Inscription } from '@models/inscription.model';
 
-
-
-
 @Component({
 	selector: 'app-inscriptions-form',
 	templateUrl: './inscriptions-form.component.html',
@@ -126,6 +123,9 @@ export class InscriptionsFormComponent implements OnInit {
 							abilities: data.user.abilities
 						});
 						this.newUser = false;
+						alert("Datos de " + userId + " importados correctamente.");
+					} else {
+						alert("No se encontraron datos de " + userId);
 					}
 				},
 				error: (error) => {
