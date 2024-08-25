@@ -6,12 +6,12 @@ import { Activity } from '@models/activity.model';
 @Injectable({
 	providedIn: 'root'
 })
-export class ActivitysService {
+export class ActivitiesService {
 	private apiUrl = 'http://localhost:3000/api/activities/';
 
 	constructor(private http: HttpClient) { }
 
-	getActivitys(): Observable<Activity[]> {
+	getActivities(): Observable<Activity[]> {
 		return this.http.get<Activity[]>(this.apiUrl);
 	}
 
