@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { usersRoutes } from '@users/users-routes';
+import { inscriptionsRoutes } from '@inscriptions/inscriptions.routes';
 
 export const routes: Routes = [
-	{ path: '', redirectTo: "/users", pathMatch: "full" },
-	...usersRoutes
+	{ path: '', redirectTo: "/inscriptions", pathMatch: "full" },
+	...inscriptionsRoutes
 ];
 
 @NgModule({
