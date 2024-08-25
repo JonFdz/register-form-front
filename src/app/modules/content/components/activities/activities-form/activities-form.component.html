@@ -1,0 +1,91 @@
+<div class="container mt-3">
+    <div class="mb-3">
+        <img
+            src="assets/xic_banner_tra.jpg"
+            class="rounded border border-2 w-100"
+            alt="Banner publicitario de inscripciones XIC"
+        />
+    </div>
+    <h1 id="title" class="p-2 ms-3 d-flex justify-content-center">
+        Registro de Taller
+    </h1>
+    <form
+        [formGroup]="activitiesForm"
+        (ngSubmit)="onSubmit()"
+        class="needs-validation"
+        novalidate
+    >
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="activity_name" class="form-label"
+                >Nombre de la Actividad<font color="red">*</font></label
+            >
+            <input
+                formControlName="activity_name"
+                type="text"
+                class="form-control"
+                id="activity_name"
+                name="activity_name"
+                required
+            />
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="instructor" class="form-label"
+                >Instructor<font color="red">*</font></label
+            >
+            <input
+                formControlName="instructor"
+                type="text"
+                class="form-control"
+                id="instructor"
+                name="instructor"
+                required
+            />
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="place" class="form-label">Lugar</label>
+            <input
+                formControlName="place"
+                type="text"
+                class="form-control"
+                id="place"
+                name="place"
+            />
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="day" class="form-label"
+                >Día<font color="red">*</font></label
+            >
+            <input
+                formControlName="day"
+                type="text"
+                class="form-control"
+                id="day"
+                name="day"
+                required
+            />
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="hour" class="form-label"
+                >Hora<font color="red">*</font></label
+            >
+            <input
+                formControlName="hour"
+                type="text"
+                class="form-control"
+                id="hour"
+                name="hour"
+                required
+            />
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="description" class="form-label">Descripción</label>
+            <textarea
+                formControlName="description"
+                class="form-control"
+                id="description"
+                name="description"
+            ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>

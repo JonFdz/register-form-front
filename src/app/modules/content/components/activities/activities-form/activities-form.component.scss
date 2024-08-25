@@ -1,0 +1,51 @@
+@import 'styles/_variables.scss';
+
+.container {
+	background-color: #fff;
+	padding: 20px 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	max-width: 600px;
+	margin: auto;
+}
+
+.card-header {
+	background-color: $primary-color;
+	color: #f9f9f9;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.title {
+	padding-top: 20px;
+	flex-grow: 1;
+	text-align: center;
+}
+
+.form-control {
+	border: 1px solid $secondary-color;
+	border-radius: 8px;
+	padding: 10px 15px;
+	transition: border-color 0.3s ease-in-out;
+
+	&:focus {
+		border-color: lighten($primary-color, 10%);
+		box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+	}
+}
+
+.btn-primary {
+	background-color: $primary-color;
+	border: none;
+	border-radius: 8px;
+	padding: 10px 20px;
+	transition: background-color 0.3s ease-in-out;
+
+	&:hover {
+		background-color: lighten($primary-color, 10%);
+	}
+}
