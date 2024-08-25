@@ -1,0 +1,47 @@
+<div class="container mt-5">
+    <div class="mb-3">
+        <img
+            src="assets/xic_banner_tra.jpg"
+            class="rounded border border-2 w-100"
+            alt="Banner plucitario de inscripciones XIC"
+        />
+    </div>
+    <h1 id="title" class="p-2 ms-3 d-flex justify-content-center">
+        Lista de Usuarios
+    </h1>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <button class="btn btn-primary me-3" (click)="addNewUser()">
+            Añadir Nuevo Usuario
+        </button>
+        <div class="d-flex">
+            <i class="bi bi-funnel-fill me-2"></i>
+            <!-- Icono de filtro, asegúrate de incluir Bootstrap Icons -->
+            <label for="userIdFilter" class="filter me-2">Filtrar por ID de Usuario:</label>
+            <input
+                id="userIdFilter"
+                class="form-control"
+                [(ngModel)]="selectedUserId"
+                (input)="filterUsers()"
+                style="width: auto"
+                placeholder="Ingrese ID de Usuario"
+            />
+        </div>
+    </div>
+
+    <ul class="list-group">
+        <li *ngFor="let user of filteredUsers" class="list-group-item">
+			<div class="d-flex justify-content-between align-items-center">
+				<div>
+					<strong>ID:</strong> {{ user.user_id }} |
+					<strong>Nombre:</strong> {{ user.user_name }} {{ user.last_name }} |
+					<strong>Género:</strong> {{ user.gender }} |
+					<strong>Fecha de Nacimiento:</strong> {{ user.birthdate | date:'shortDate' }} |
+					<strong>Lugar de Nacimiento:</strong> {{ user.birthplace }} |
+					<strong>Teléfono:</strong> {{ user.phone }}
+					<span *ngIf="user.email">| <strong>Email:</strong> {{ user.email }}</span>
+				</div>
+			</div>
+		</li>
+    </ul>
+</div>
