@@ -1,0 +1,342 @@
+<div class="container mt-3">
+    <div class="mb-3">
+        <img
+            src="assets/xic_banner_tra.jpg"
+            class="rounded border border-2 w-100"
+            alt="Banner plucitario de inscripciones XIC"
+        />
+    </div>
+    <h1 id="title" class="p-2 ms-3 d-flex justify-content-center">
+        Inscripciones XIC 2024-2025
+    </h1>
+    <form
+        [formGroup]="inscriptionsForm"
+        (ngSubmit)="onSubmit()"
+        class="needs-validation"
+        novalidate
+    >
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="user_id" class="form-label"
+                >DNI/NIE<font color="red">*</font></label
+            >
+            <div class="input-group">
+                <input
+                    formControlName="user_id"
+                    type="text"
+                    class="form-control"
+                    id="user_id"
+                    name="user_id"
+                    required
+                />
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="buscarRegistro"
+                    (click)="checkUserId()"
+                >
+                    Buscar DNI
+                </button>
+            </div>
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="user_name" class="form-label"
+                >Nombre<font color="red">*</font></label
+            >
+            <input
+                formControlName="user_name"
+                type="text"
+                class="form-control"
+                id="user_name"
+                name="user_name"
+                required
+            />
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="last_name" class="form-label"
+                >Apellido<font color="red">*</font></label
+            >
+            <input
+                formControlName="last_name"
+                type="text"
+                class="form-control"
+                id="last_name"
+                name="last_name"
+                required
+            />
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label class="form-label">Género<font color="red">*</font></label>
+            <div *ngFor="let gender of genders">
+                <div class="form-check form-check-inline">
+                    <input
+                        formControlName="gender"
+                        class="form-check-input"
+                        type="radio"
+                        id="gender"
+                        name="gender"
+                        [value]="gender"
+                    />
+                    <label class="form-check-label" for="gender">{{
+                        gender
+                    }}</label>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="birthdate" class="form-label"
+                >Fecha de nacimiento<font color="red">*</font></label
+            >
+            <input
+                formControlName="birthdate"
+                type="date"
+                class="form-control"
+                id="birthdate"
+                name="birthdate"
+                required
+            />
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="birthplace" class="form-label"
+                >Lugar de nacimiento<font color="red">*</font></label
+            >
+            <input
+                formControlName="birthplace"
+                type="text"
+                class="form-control"
+                id="birthplace"
+                name="birthplace"
+                required
+            />
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="phone" class="form-label"
+                >Teléfono<font color="red">*</font></label
+            >
+            <input
+                formControlName="phone"
+                type="tel"
+                class="form-control"
+                id="phone"
+                name="phone"
+                required
+            />
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <input
+                formControlName="email"
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+            />
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="activity1" class="form-label"
+                >Intercambio 1<font color="red">*</font></label
+            >
+            <select
+                formControlName="activity1"
+                class="form-select"
+                id="activity1"
+                name="activity1"
+                required
+            >
+                <option [value]="''">Seleccionar</option>
+                <option
+                    *ngFor="let activity of activities"
+                    [value]="activity.activity_id"
+                >
+                    {{
+                        activity.activity_name +
+                            " | " +
+                            activity.instructor +
+                            " | " +
+                            activity.day +
+                            " de " +
+                            activity.hour
+                    }}
+                </option>
+            </select>
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="activity2" class="form-label">Intercambio 2</label>
+            <select
+                formControlName="activity2"
+                class="form-select"
+                id="activity2"
+                name="activity2"
+            >
+                <option [value]="''">Seleccionar</option>
+                <option
+                    *ngFor="let activity of activities"
+                    [value]="activity.activity_id"
+                >
+                    {{
+                        activity.activity_name +
+                            " | " +
+                            activity.instructor +
+                            " | " +
+                            activity.day +
+                            " de " +
+                            activity.hour
+                    }}
+                </option>
+            </select>
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="activity3" class="form-label">Intercambio 3</label>
+            <select
+                formControlName="activity3"
+                class="form-select"
+                id="activity3"
+                name="activity3"
+            >
+                <option [value]="''">Seleccionar</option>
+                <option
+                    *ngFor="let activity of activities"
+                    [value]="activity.activity_id"
+                >
+                    {{
+                        activity.activity_name +
+                            " | " +
+                            activity.instructor +
+                            " | " +
+                            activity.day +
+                            " de " +
+                            activity.hour
+                    }}
+                </option>
+            </select>
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="activity4" class="form-label">Intercambio 4</label>
+            <select
+                formControlName="activity4"
+                class="form-select"
+                id="activity4"
+                name="activity4"
+            >
+                <option [value]="''">Seleccionar</option>
+                <option
+                    *ngFor="let activity of activities"
+                    [value]="activity.activity_id"
+                >
+                    {{
+                        activity.activity_name +
+                            " | " +
+                            activity.instructor +
+                            " | " +
+                            activity.day +
+                            " de " +
+                            activity.hour
+                    }}
+                </option>
+            </select>
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="activity5" class="form-label">Intercambio 5</label>
+            <select
+                formControlName="activity5"
+                class="form-select"
+                id="activity5"
+                name="activity5"
+            >
+                <option [value]="''">Seleccionar</option>
+                <option
+                    *ngFor="let activity of activities"
+                    [value]="activity.activity_id"
+                >
+                    {{
+                        activity.activity_name +
+                            " | " +
+                            activity.instructor +
+                            " | " +
+                            activity.day +
+                            " de " +
+                            activity.hour
+                    }}
+                </option>
+            </select>
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="abilities" class="form-label"
+                >¿Qué podría enseñar?</label
+            >
+            <input
+                formControlName="abilities"
+                type="text"
+                class="form-control"
+                id="abilities"
+                name="abilities"
+                value=""
+            />
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label class="form-label"
+                >Paga cuota<font color="red">*</font> (Se aplica
+                automáticamente)</label
+            >
+            <div>
+                <input
+                    formControlName="fee"
+                    class="form-control"
+                    id="fee"
+                    [value]="fee"
+                    readonly
+                    hidden
+                />
+                <div>
+                    {{
+                        fee +
+                            "€ | " +
+                            (fee === 0 ? 0 : fee / 5) +
+                            " Intercambio/s"
+                    }}
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="referred" class="form-label"
+                >FACILITADOR/A<font color="red">*</font></label
+            >
+            <select
+                formControlName="referred"
+                class="form-select"
+                id="referred"
+                name="referred"
+                value="<?php echo isset($_SESSION['dni']) ? $_SESSION['dni'] : ''; ?>"
+                required
+            >
+                <option value="">Seleccionar</option>
+                <option
+					*ngFor="let referred of referrers"
+					[value]="referred.user_name">{{ referred.user_name + ' ' + referred.last_name}}</option>
+            </select>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-between">
+                    <button
+                        type="submit"
+                        [disabled]="!inscriptionsForm.valid"
+                        class="btn btn-primary"
+                        style="width: 10rem; height: 3rem"
+                    >
+                        Enviar
+                    </button>
+                    <button
+                        type="button"
+                        id="btn-limpiar"
+                        class="btn btn-secondary"
+                        style="width: 10rem; height: 3rem"
+                        (click)="resetForm()"
+                    >
+                        Limpiar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
