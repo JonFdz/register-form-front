@@ -39,9 +39,12 @@ export class UsersFormComponent {
 	onSubmit(): void {
 		if (this.usersForm.valid) {
 			this.usersService.createUser(this.usersForm.value).subscribe((data: any) => {
+				alert('Usuario creado correctamente');
 				console.log('Usuario creado');
+				this.usersForm.reset();
 			});
 		} else {
+			alert('Formulario no válido');
 			console.log('Formulario no válido');
 		}
 	}
