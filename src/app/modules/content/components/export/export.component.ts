@@ -44,20 +44,20 @@ export class ExportComponent {
 
 	private exportInscriptions(): void {
 		this.inscriptionsService.getInscriptions().subscribe((data: any) => {
-			const filteredData = this.filterByDate(data.inscriptions);
+			const filteredData = this.filterByDate(data);
 			this.downloadCSV(filteredData, 'inscriptions.csv');
 		});
 	}
 
 	private exportActivities(): void {
 		this.activitiesService.getActivities().subscribe((data: any) => {
-			this.downloadCSV(data.activities, 'activities.csv');
+			this.downloadCSV(data, 'activities.csv');
 		});
 	}
 
 	private exportUsers(): void {
 		this.usersService.getUsers().subscribe((data: any) => {
-			this.downloadCSV(data.users, 'users.csv');
+			this.downloadCSV(data, 'users.csv');
 		});
 	}
 
