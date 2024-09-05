@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsersService } from '@services/users.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class UsersFormComponent {
 	constructor(
 		private fb: FormBuilder,
 		private usersService: UsersService,
+		private router: Router
 	) {
 		this.usersForm = this.fb.group({
 			user_id: ['', Validators.required],
@@ -32,16 +34,13 @@ export class UsersFormComponent {
 		});
 	}
 
-	ngOnInit(): void {
-
-	}
-
 	onSubmit(): void {
 		if (this.usersForm.valid) {
 			this.usersService.createUser(this.usersForm.value).subscribe((data: any) => {
 				alert('Usuario creado correctamente');
 				console.log('Usuario creado');
 				this.usersForm.reset();
+				this.router.navigate(['users/']);
 			});
 		} else {
 			alert('Formulario no válido');

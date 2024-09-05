@@ -7,7 +7,7 @@ import { Activity } from '@models/activity.model';
 	providedIn: 'root'
 })
 export class ActivitiesService {
-	private apiUrl = 'http://localhost:3000/api/activities/';
+	private apiUrl = 'https://xicnoubarris.org/wp-json/api/v1/activities';
 
 	constructor(private http: HttpClient) { }
 

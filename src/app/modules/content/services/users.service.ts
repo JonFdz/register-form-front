@@ -7,7 +7,7 @@ import { User } from '@models/user.model';
 	providedIn: 'root'
 })
 export class UsersService {
-	private apiUrl = 'http://localhost:3000/api/users/';  // Cambia esto por la URL de tu backend
+	private apiUrl = 'https://xicnoubarris.org/wp-json/api/v1/users';  // Cambia esto por la URL de tu backend
 
 	constructor(private http: HttpClient) { }
 

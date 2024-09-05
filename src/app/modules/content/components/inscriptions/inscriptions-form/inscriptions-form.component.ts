@@ -53,10 +53,10 @@ export class InscriptionsFormComponent implements OnInit {
 			referred: [null, Validators.required]
 		});
 		this.activitiesService.getActivities().subscribe((data: any) => {
-			this.activities = data.activities;
+			this.activities = data;
 		});
 		this.usersService.getUsers().subscribe((data: any) => {
-			this.referrers = data.users.filter((user: User) => user.role === 'admin');
+			this.referrers = data.filter((user: User) => user.role === 'admin');
 		});
 	}
 
@@ -110,17 +110,17 @@ export class InscriptionsFormComponent implements OnInit {
 					return throwError(() => error);
 				})
 			).subscribe({
-				next: (data: any) => {
-					if (data.user) {
+				next: (user: any) => {
+					if (user) {
 						this.inscriptionsForm.patchValue({
-							user_name: data.user.user_name,
-							last_name: data.user.last_name,
-							gender: data.user.gender,
-							birthdate: data.user.birthdate,
-							birthplace: data.user.birthplace,
-							phone: data.user.phone,
-							email: data.user.email,
-							abilities: data.user.abilities
+							user_name: user.user_name,
+							last_name: user.last_name,
+							gender: user.gender,
+							birthdate: user.birthdate,
+							birthplace: user.birthplace,
+							phone: user.phone,
+							email: user.email,
+							abilities: user.abilities
 						});
 						this.newUser = false;
 						alert("Datos de " + userId + " importados correctamente.");
@@ -185,17 +185,15 @@ export class InscriptionsFormComponent implements OnInit {
 		const inscription: Inscription = {
 			user_id: user.user_id,
 			activity1_id: this.inscriptionsForm.get('activity1')!.value,
-			activity2_id: this.inscriptionsForm.get('activity2')?.value,
-			activity3_id: this.inscriptionsForm.get('activity3')?.value,
-			activity4_id: this.inscriptionsForm.get('activity4')?.value,
-			activity5_id: this.inscriptionsForm.get('activity5')?.value,
+			activity2_id: this.inscriptionsForm.get('activity2')?.value == null ? undefined : this.inscriptionsForm.get('activity2')?.value,
+			activity3_id: this.inscriptionsForm.get('activity3')?.value == null ? undefined : this.inscriptionsForm.get('activity3')?.value,
 			fee: this.fee,
 			referred: this.inscriptionsForm.get('referred')!.value
 		};
 
 		this.inscriptionsService.createInscription(inscription).pipe(
 			catchError((error) => {
-				console.error("Error creating inscription: ", error);
+				console.error("Error creating inscription: ", inscription, 'Error: ', error);
 				return throwError(() => error);
 			})
 		).subscribe({

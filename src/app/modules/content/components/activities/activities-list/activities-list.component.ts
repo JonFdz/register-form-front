@@ -32,8 +32,8 @@ export class ActivitiesListComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.activitiesService.getActivities().subscribe((data: any) => {
-			this.activities = data.activities;
-			this.filteredActivities = data.activities;
+			this.activities = data;
+			this.filteredActivities = data;
 		});
 	}
 

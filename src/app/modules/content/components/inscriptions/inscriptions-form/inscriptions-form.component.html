@@ -211,56 +211,6 @@
             </select>
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
-            <label for="activity4" class="form-label">Intercambio 4</label>
-            <select
-                formControlName="activity4"
-                class="form-select"
-                id="activity4"
-                name="activity4"
-            >
-                <option [value]="''">Seleccionar</option>
-                <option
-                    *ngFor="let activity of activities"
-                    [value]="activity.activity_id"
-                >
-                    {{
-                        activity.activity_name +
-                            " | " +
-                            activity.instructor +
-                            " | " +
-                            activity.day +
-                            " de " +
-                            activity.hour
-                    }}
-                </option>
-            </select>
-        </div>
-        <div class="mb-3 bg-white rounded border border-1 p-4">
-            <label for="activity5" class="form-label">Intercambio 5</label>
-            <select
-                formControlName="activity5"
-                class="form-select"
-                id="activity5"
-                name="activity5"
-            >
-                <option [value]="''">Seleccionar</option>
-                <option
-                    *ngFor="let activity of activities"
-                    [value]="activity.activity_id"
-                >
-                    {{
-                        activity.activity_name +
-                            " | " +
-                            activity.instructor +
-                            " | " +
-                            activity.day +
-                            " de " +
-                            activity.hour
-                    }}
-                </option>
-            </select>
-        </div>
-        <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="abilities" class="form-label"
                 >¿Qué podría enseñar?</label
             >

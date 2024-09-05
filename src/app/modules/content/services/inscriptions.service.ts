@@ -7,7 +7,7 @@ import { Inscription } from '@models/inscription.model';
 	providedIn: 'root'
 })
 export class InscriptionsService {
-	private apiUrl = 'http://localhost:3000/api/inscriptions/';
+	private apiUrl = 'https://xicnoubarris.org/wp-json/api/v1/inscriptions';
 
 	constructor(private http: HttpClient) { }
 

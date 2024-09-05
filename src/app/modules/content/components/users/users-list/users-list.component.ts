@@ -28,8 +28,8 @@ export class UsersListComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.usersService.getUsers().subscribe((data: any) => {
-			this.users = data.users;
-			this.filteredUsers = data.users;
+			this.users = data;
+			this.filteredUsers = data;
 		});
 	}
 
