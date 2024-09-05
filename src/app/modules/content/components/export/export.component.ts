@@ -45,7 +45,8 @@ export class ExportComponent {
 	private exportInscriptions(): void {
 		this.inscriptionsService.getInscriptions().subscribe((data: any) => {
 			const filteredData = this.filterByDate(data);
-			this.downloadCSV(filteredData, 'inscriptions.csv');
+			const sortedData = filteredData.sort((a: Inscription, b: Inscription) => a.inscription_id! - b.inscription_id!);
+			this.downloadCSV(sortedData, 'inscriptions.csv');
 		});
 	}
 
