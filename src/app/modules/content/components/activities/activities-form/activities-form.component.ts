@@ -23,9 +23,9 @@ export class ActivitiesFormComponent implements OnInit {
 		this.activitiesForm = this.fb.group({
 			activity_name: ['', Validators.required],
 			instructor: ['', Validators.required],
-			place: [''],
 			day: ['', Validators.required],
 			hour: ['', Validators.required],
+			category: [''],
 			description: ['']
 		});
 	}
@@ -37,7 +37,7 @@ export class ActivitiesFormComponent implements OnInit {
 	onSubmit(): void {
 		if (this.activitiesForm.valid) {
 			this.activitiesService.createActivity(this.activitiesForm.value).subscribe((data: any) => {
-				console.log('Actividad creada');
+				console.log('Intercambio creado', data);
 				this.router.navigate(['/activities']);
 			});
 		} else {

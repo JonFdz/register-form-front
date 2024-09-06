@@ -7,7 +7,7 @@
         />
     </div>
     <h1 id="title" class="p-2 ms-3 d-flex justify-content-center">
-        Registro de Taller
+        Registro de Intercambio
     </h1>
     <form
         [formGroup]="activitiesForm"
@@ -17,7 +17,7 @@
     >
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="activity_name" class="form-label"
-                >Nombre de la Actividad<font color="red">*</font></label
+                >Nombre del Intercambio<font color="red">*</font></label
             >
             <input
                 formControlName="activity_name"
@@ -30,7 +30,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="instructor" class="form-label"
-                >Instructor<font color="red">*</font></label
+                >Facilitador/a<font color="red">*</font></label
             >
             <input
                 formControlName="instructor"
@@ -39,16 +39,6 @@
                 id="instructor"
                 name="instructor"
                 required
-            />
-        </div>
-        <div class="mb-3 bg-white rounded border border-1 p-4">
-            <label for="place" class="form-label">Lugar</label>
-            <input
-                formControlName="place"
-                type="text"
-                class="form-control"
-                id="place"
-                name="place"
             />
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
@@ -75,6 +65,16 @@
                 id="hour"
                 name="hour"
                 required
+            />
+        </div>
+		<div class="mb-3 bg-white rounded border border-1 p-4">
+            <label for="category" class="form-label">Categoria</label>
+            <input
+                formControlName="category"
+                type="text"
+                class="form-control"
+                id="category"
+                name="category"
             />
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">

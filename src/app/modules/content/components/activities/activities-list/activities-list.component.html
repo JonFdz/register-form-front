@@ -14,14 +14,14 @@
         <button class="btn btn-primary me-3" (click)="addNewActivity()">
             Añadir Nueva Entrada
         </button>
-        <div class="d-flex">
+        <div class="d-flex align-items-center">
             <i class="bi bi-funnel-fill me-2"></i>
             <!-- Icono de filtro, asegúrate de incluir Bootstrap Icons -->
             <label for="dayFilter" class="filter me-2">Filtrar por Día:</label>
             <select
                 id="dayFilter"
-                class="form-select"
-                [(ngModel)]="selectedDay"
+                class="form-select me-4"
+                [(ngModel)]="selectedDays"
                 (change)="filterActivities()"
                 style="width: auto"
             >
@@ -34,16 +34,33 @@
                 <option value="Sábado">Sábado</option>
                 <option value="Domingo">Domingo</option>
             </select>
+
+			<!-- Filtro por Categoría -->
+			<label for="categoryFilter" class="filter me-2">Filtrar por Categoría:</label>
+			<select
+				id="categoryFilter"
+				class="form-select"
+				[(ngModel)]="selectedCategories"
+				(change)="filterActivities()"
+				style="width: auto"
+			>
+				<option value="">Todas</option>
+				<option value="Arte">Arte</option>
+                <option value="Deportes">Deportes</option>
+                <option value="Cocina">Cocina</option>
+                <option value="Teatro">Teatro</option>
+			</select>
         </div>
     </div>
     <ul class="list-group">
-		<li *ngFor="let activity of filteredActivities" class="list-group-item">
+		<li *ngFor="let activity of filteredActivities; let i = index" class="list-group-item">
 			<div class="d-flex justify-content-between align-items-center">
 				<div>
-					<strong>Actividad:</strong> {{ activity.activity_name }} |
-					<strong>Instructor:</strong> {{ activity.instructor }} |
+					<strong>{{ i + 1 }}. Intercambio:</strong> {{ activity.activity_name }} |
+					<strong>Facilitador/a:</strong> {{ activity.instructor }} |
 					<strong>Día:</strong> {{ activity.day }} |
 					<strong>Hora:</strong> {{ activity.hour }}
+					<strong>Categoría:</strong> {{ activity.category ? activity.category : 'Sin categoría' }}
 				</div>
 			</div>
 		</li>

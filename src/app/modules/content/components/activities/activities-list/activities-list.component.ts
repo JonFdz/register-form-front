@@ -22,7 +22,8 @@ import { Router } from '@angular/router';
 export class ActivitiesListComponent implements OnInit {
 	activities: Activity[] = [];
 	filteredActivities: Activity[] = [];
-	selectedDay: string = '';
+	selectedDays: string[] = [];
+	selectedCategories: string[] = [];
 
 	constructor(
 		private activitiesService: ActivitiesService,
@@ -38,12 +39,18 @@ export class ActivitiesListComponent implements OnInit {
 	}
 
 	filterActivities(): void {
-		if (this.selectedDay) {
-			this.filteredActivities = this.activities.filter(
-				activity => activity.day === this.selectedDay
+		this.filteredActivities = this.activities;
+
+		if (this.selectedDays.length > 0) {
+			this.filteredActivities = this.filteredActivities.filter(activity =>
+				this.selectedDays.some(day => activity.day.includes(day))
 			);
-		} else {
-			this.filteredActivities = this.activities;
+		}
+
+		if (this.selectedCategories.length > 0) {
+			this.filteredActivities = this.filteredActivities.filter(activity =>
+				this.selectedCategories.some(category => activity.category?.includes(category))
+			);
 		}
 	}
 
