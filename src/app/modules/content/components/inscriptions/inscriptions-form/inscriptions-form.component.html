@@ -145,10 +145,10 @@
             >
                 <option [value]="''">Seleccionar</option>
                 <option
-                    *ngFor="let activity of activities"
+                    *ngFor="let activity of activities; let i = index"
                     [value]="activity.activity_id"
                 >
-                    {{
+				{{ i + 1 }}. {{
                         activity.activity_name +
                             " | " +
                             activity.instructor +
@@ -170,10 +170,10 @@
             >
                 <option [value]="''">Seleccionar</option>
                 <option
-                    *ngFor="let activity of activities"
+                    *ngFor="let activity of activities; let i = index"
                     [value]="activity.activity_id"
                 >
-                    {{
+				{{ i + 1 }}. {{
                         activity.activity_name +
                             " | " +
                             activity.instructor +
@@ -195,10 +195,10 @@
             >
                 <option [value]="''">Seleccionar</option>
                 <option
-                    *ngFor="let activity of activities"
+                    *ngFor="let activity of activities; let i = index"
                     [value]="activity.activity_id"
                 >
-                    {{
+				{{ i + 1 }}. {{
                         activity.activity_name +
                             " | " +
                             activity.instructor +
@@ -249,7 +249,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="referred" class="form-label"
-                >FACILITADOR/A<font color="red">*</font></label
+                >Acogida<font color="red">*</font></label
             >
             <select
                 formControlName="referred"
@@ -261,21 +261,16 @@
             >
                 <option value="">Seleccionar</option>
                 <option
-					*ngFor="let referred of referrers"
-					[value]="referred.user_name">{{ referred.user_name + ' ' + referred.last_name}}</option>
+                    *ngFor="let referred of referrers"
+                    [value]="referred.user_name"
+                >
+                    {{ referred.user_name + " " + referred.last_name }}
+                </option>
             </select>
         </div>
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-between">
-                    <button
-                        type="submit"
-                        [disabled]="!inscriptionsForm.valid"
-                        class="btn btn-primary"
-                        style="width: 10rem; height: 3rem"
-                    >
-                        Enviar
-                    </button>
                     <button
                         type="button"
                         id="btn-limpiar"
@@ -284,6 +279,14 @@
                         (click)="resetForm()"
                     >
                         Limpiar
+                    </button>
+                    <button
+                        type="submit"
+                        [disabled]="!inscriptionsForm.valid"
+                        class="btn btn-primary"
+                        style="width: 10rem; height: 3rem"
+                    >
+                        Enviar
                     </button>
                 </div>
             </div>

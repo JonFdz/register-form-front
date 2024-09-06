@@ -56,7 +56,7 @@ export class InscriptionsFormComponent implements OnInit {
 			this.activities = data;
 		});
 		this.usersService.getUsers().subscribe((data: any) => {
-			this.referrers = data.filter((user: User) => user.role === 'admin');
+			this.referrers = data.filter((user: User) => user.role === 'Acogida');
 		});
 	}
 
@@ -106,12 +106,16 @@ export class InscriptionsFormComponent implements OnInit {
 		if (userId) {
 			this.usersService.getUser(userId).pipe(
 				catchError((error) => {
+					if (error.error.code === "no_user") {
+						alert("No se encontraron datos de " + userId);
+						console.error("No user found with ID: ", userId);
+					}
 					console.error("Error fetching user: ", error);
 					return throwError(() => error);
 				})
 			).subscribe({
 				next: (user: any) => {
-					if (user) {
+					if (user !== null) {
 						this.inscriptionsForm.patchValue({
 							user_name: user.user_name,
 							last_name: user.last_name,
@@ -124,14 +128,15 @@ export class InscriptionsFormComponent implements OnInit {
 						});
 						this.newUser = false;
 						alert("Datos de " + userId + " importados correctamente.");
-					} else {
-						alert("No se encontraron datos de " + userId);
 					}
 				},
 				error: (error) => {
 					console.error("There was an error during the user fetch: ", error);
 				}
 			});
+		} else {
+			alert("Por favor, introduzca un DNI/NIE de usuario.");
+			console.error("No user ID provided.");
 		}
 	}
 
@@ -198,7 +203,9 @@ export class InscriptionsFormComponent implements OnInit {
 			})
 		).subscribe({
 			next: (data: any) => {
+				alert("Inscripción creada correctamente.");
 				console.log("Inscription created successfully: " + data);
+				window.scrollTo(0, 0);
 			},
 			error: (error) => {
 				console.error("There was an error during the inscription creation: ", error);
