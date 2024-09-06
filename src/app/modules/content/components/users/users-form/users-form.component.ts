@@ -14,6 +14,7 @@ import { UsersService } from '@services/users.service';
 export class UsersFormComponent {
 	usersForm: FormGroup;
 	genders: string[] = ["Hombre", "Mujer", "Otro"];
+	roles: string[] = ["Xarxero", "Acogida", "Administrador"];
 
 	constructor(
 		private fb: FormBuilder,
