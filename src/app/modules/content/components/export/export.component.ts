@@ -67,7 +67,11 @@ export class ExportComponent {
 			return data;
 		}
 		const start = new Date(this.startDate);
-		const end = new Date(this.endDate);;
+		start.setHours(0, 0, 0, 0);
+
+		const end = new Date(this.endDate);
+		end.setHours(23, 59, 59, 999);
+
 		return data.filter((inscription: Inscription) => {
 			const date = new Date(inscription.created_at ?? '');
 			return date >= start && date <= end;
