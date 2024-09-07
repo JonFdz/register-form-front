@@ -5,6 +5,7 @@ import { inscriptionsRoutes } from '@inscriptions/inscriptions.routes';
 import { exportRoutes } from './modules/content/components/export/export.routes';
 import { activitiesRoutes } from '@activities/activities.routes';
 import { usersRoutes } from '@users/users-routes';
+import { loginRoutes } from './modules/content/components/login/login.routes';
 
 export const routes: Routes = [
 	{ path: '', redirectTo: "/inscriptions", pathMatch: "full" },
@@ -12,6 +13,7 @@ export const routes: Routes = [
 	...exportRoutes,
 	...activitiesRoutes,
 	...usersRoutes,
+	...loginRoutes,
 ];
 
 @NgModule({
