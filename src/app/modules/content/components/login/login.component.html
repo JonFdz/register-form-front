@@ -1,0 +1,41 @@
+<div class="container mt-5">
+    <div class="mb-3">
+        <img
+            src="assets/xic_banner_tra.jpg"
+            class="rounded border border-2 w-100"
+            alt="Banner publicitario de inscripciones XIC"
+        />
+    </div>
+    <h1 id="title" class="p-2 ms-3 d-flex justify-content-center">Login</h1>
+    <form class="row g-3" (ngSubmit)="onSubmit()">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="col-md-4">
+                <label for="username" class="form-label">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    class="form-control"
+                    [(ngModel)]="username"
+                    name="username"
+                    required
+                />
+            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <div class="col-md-4">
+                <label for="password" class="form-label">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    [(ngModel)]="password"
+                    name="password"
+                    required
+                />
+            </div>
+        </div>
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </form>
+</div>

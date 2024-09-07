@@ -1,0 +1,26 @@
+@import 'styles/_variables.scss';
+
+.container {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+	padding-top: 20px;
+	flex-grow: 1;
+	text-align: center;
+}
+
+.btn-primary {
+	background-color: $primary-color;
+	border: none;
+	border-radius: 8px;
+	padding: 10px 20px;
+	transition: background-color 0.3s ease-in-out;
+
+	&:hover {
+		background-color: lighten($primary-color, 10%);
+	}
+}
