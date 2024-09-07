@@ -2,12 +2,19 @@
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 @import "styles/_variables.scss";
 
+html,
 body {
+	height: 100%;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
 	background-color: #f8f9fa;
 	color: $secondary-color;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.container {
-	padding: 20px;
+app-root {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
 }
