@@ -28,10 +28,6 @@ export class HeaderComponent {
 	}
 
 	toggleSidebar(): void {
-		if (this.isLoggedIn()) {
-			this.onToggleSidebar.emit();
-		} else {
-			this.router.navigate(['/login']);
-		}
+		this.onToggleSidebar.emit();
 	}
 }

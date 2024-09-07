@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
 					localStorage.setItem('token', response.token);
 					this.router.navigateByUrl(this.returnUrl).then(() => {
 						this.returnUrl = '';
+						window.scrollTo(0, 0);
 					});
 				} else {
 					alert('Login failed');
