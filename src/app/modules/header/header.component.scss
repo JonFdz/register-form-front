@@ -3,7 +3,7 @@
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 15px 30px;
     background-color: $secondary-color;
     color: #fff;
@@ -22,20 +22,26 @@
     }
 
     .nav {
+        flex: 1;
         display: flex;
+        justify-content: center;
         gap: 20px;
 
         .nav-link {
-            color: $primary-color;
+            color: #ffffff;
             text-decoration: none;
             font-weight: bold;
-            padding-bottom: 2px;
-            transition: color 0.3s, padding-bottom 0.3s, border-bottom 0.3s;
+            padding: 10px 20px;
+            font-size: 1.5em;
+            background-color: $primary-color;
+            border-radius: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
 
             &:hover {
-                color: lighten($primary-color, 10%);
-                padding-bottom: 0; // Reduce el espacio para el subrayado
-                border-bottom: 5px solid lighten($primary-color, 10%);
+                background-color: lighten($primary-color, 10%);
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+                transform: translateY(-2px);
             }
         }
     }

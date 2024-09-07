@@ -1,6 +1,14 @@
+@import 'styles/_variables.scss';
+
 .icon {
-	width: 2em;
-	height: 2em;
+	width: 4em;
+	height: 4em;
 	vertical-align: middle;
 	margin-right: 10px;
-  }
+}
+
+footer {
+	background-color: $secondary-color;
+	text-align: center;
+	padding: 20px 0;
+}
