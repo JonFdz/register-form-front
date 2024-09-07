@@ -9,5 +9,5 @@ export const appConfig: ApplicationConfig = {
 	providers: [
 		provideRouter(routes),
 		importProvidersFrom(HttpClientModule),
-		{ provide: APP_BASE_HREF, useValue: '/inscripciones' }]
+		{ provide: APP_BASE_HREF, useValue: '/inscripcions' }]
 };

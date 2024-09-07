@@ -8,7 +8,6 @@ import { usersRoutes } from '@users/users-routes';
 import { loginRoutes } from './modules/content/components/login/login.routes';
 
 export const routes: Routes = [
-	{ path: '', redirectTo: "/inscriptions", pathMatch: "full" },
 	...inscriptionsRoutes,
 	...exportRoutes,
 	...activitiesRoutes,

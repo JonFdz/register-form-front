@@ -3,5 +3,5 @@ import { InscriptionsFormComponent } from './inscriptions-form/inscriptions-form
 
 
 export const inscriptionsRoutes: Routes = [
-	{ path: 'inscriptions', component: InscriptionsFormComponent }
+	{ path: '', component: InscriptionsFormComponent }
 ];
