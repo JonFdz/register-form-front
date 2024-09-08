@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { UsersService } from '@services/users.service';
 
 @Component({
@@ -11,15 +12,17 @@ import { UsersService } from '@services/users.service';
 	templateUrl: './users-form.component.html',
 	styleUrl: './users-form.component.scss'
 })
-export class UsersFormComponent {
+export class UsersFormComponent implements OnInit {
 	usersForm: FormGroup;
 	genders: string[] = ["Hombre", "Mujer", "Otro"];
 	roles: string[] = ["Xarxero", "Acogida", "Administrador"];
+	userId: string | null = null;
 
 	constructor(
 		private fb: FormBuilder,
 		private usersService: UsersService,
-		private router: Router
+		private router: Router,
+		private route: ActivatedRoute
 	) {
 		this.usersForm = this.fb.group({
 			user_id: ['', Validators.required],
@@ -35,17 +38,38 @@ export class UsersFormComponent {
 		});
 	}
 
+	ngOnInit(): void {
+		this.userId = this.route.snapshot.paramMap.get('id');
+		if (this.userId) {
+			this.loadUserData(this.userId);
+		}
+	}
+
+	loadUserData(userId: string): void {
+		this.usersService.getUser(userId).subscribe((user: any) => {
+			this.usersForm.patchValue(user);
+		});
+	}
+
 	onSubmit(): void {
 		if (this.usersForm.valid) {
-			this.usersService.createUser(this.usersForm.value).subscribe((data: any) => {
-				alert('Usuario creado correctamente');
-				console.log('Usuario creado');
-				this.usersForm.reset();
-				this.router.navigate(['users/']);
-			});
+			if (this.userId) {
+				this.usersService.updateUser(this.userId, this.usersForm.value).subscribe(() => {
+					alert('Usuario actualizado correctamente');
+					console.log('User updated');
+					this.router.navigate(['users/']);
+				});
+			} else {
+				this.usersService.createUser(this.usersForm.value).subscribe(() => {
+					alert('Usuario creado correctamente');
+					console.log('User created');
+					this.usersForm.reset();
+					this.router.navigate(['users/']);
+				});
+			}
 		} else {
 			alert('Formulario no válido');
-			console.log('Formulario no válido');
+			console.log('Invalid form');
 		}
 	}
 }

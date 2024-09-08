@@ -16,7 +16,6 @@
         </button>
         <div class="d-flex">
             <i class="bi bi-funnel-fill me-2"></i>
-            <!-- Icono de filtro, asegúrate de incluir Bootstrap Icons -->
             <label for="userIdFilter" class="filter me-2">Filtrar por DNI/NIE de Usuario:</label>
             <input
                 id="userIdFilter"
@@ -30,13 +29,14 @@
     </div>
 
     <ul class="list-group">
-        <li *ngFor="let user of filteredUsers" class="list-group-item">
+        <li *ngFor="let user of filteredUsers" class="list-group-item" (click)="openDialog('Users', user.user_id!)"
+		style="cursor: pointer">
 			<div class="d-flex justify-content-between align-items-center">
 				<div>
 					<strong>DNI/NIE:</strong> {{ user.user_id }} |
 					<strong>Nombre:</strong> {{ user.user_name }} {{ user.last_name }} |
 					<strong>Género:</strong> {{ user.gender }} |
-					<strong>Fecha de Nacimiento:</strong> {{ user.birthdate | date:'shortDate' }} |
+					<strong>Fecha de Nacimiento:</strong> {{ user.birthdate | date:'dd/MM/yy' }} |
 					<strong>Lugar de Nacimiento:</strong> {{ user.birthplace }} |
 					<strong>Teléfono:</strong> {{ user.phone }}
 					<span *ngIf="user.email">| <strong>Email:</strong> {{ user.email }}</span>

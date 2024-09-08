@@ -2,16 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog'; // Import the MatDialog class
 
 import { User } from '@models/user.model';
 import { UsersService } from '@services/users.service';
+import { DialogComponent } from '@sharedcontent/dialog/dialog.component';
 
 @Component({
 	selector: 'app-users-list',
 	standalone: true,
-	imports: [CommonModule, FormsModule,
-		//DateFormatterPipe, VmDialogComponent
-	],
+	imports: [CommonModule, FormsModule,],
 	templateUrl: './users-list.component.html',
 	styleUrl: './users-list.component.scss'
 })
@@ -23,7 +23,7 @@ export class UsersListComponent implements OnInit {
 	constructor(
 		private usersService: UsersService,
 		private router: Router,
-		// private dialog: MatDialog
+		private dialog: MatDialog
 	) { }
 
 	ngOnInit(): void {
@@ -48,15 +48,15 @@ export class UsersListComponent implements OnInit {
 	}
 
 
-	openDialog(vmId: number): void {
-		// this.dialog.open(VmDialogComponent, {
-		// 	data: vmId
-		// });
-		// this.dialog.afterAllClosed.subscribe(() => {
-		// 	this.vmService.getVms().subscribe(data => {
-		// 		this.vms = data;
-		// 		this.filteredVms = data;
-		// 	});
-		// });
+	openDialog(component: string, id: string): void {
+		this.dialog.open(DialogComponent, {
+			data: {component, id }
+		});
+		this.dialog.afterAllClosed.subscribe(() => {
+			this.usersService.getUsers().subscribe(data => {
+				this.users = data;
+				this.filteredUsers = data;
+			});
+		});
 	}
 }
