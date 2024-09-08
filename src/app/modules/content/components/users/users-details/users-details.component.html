@@ -1,0 +1,67 @@
+<div class="modal-header">
+    <h5 class="modal-title">Detalles del Usuario</h5>
+    <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="onCloseDialog()"
+    ></button>
+</div>
+<div class="modal-body">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="detail-item">
+                    <label class="d-block">DNI/NIE del Usuario: </label>
+                    <span>{{ user.user_id }}</span>
+                </div>
+                <div class="detail-item">
+                    <label class="d-block">Nombre: </label>
+                    <span>{{ user.user_name }}</span>
+                </div>
+                <div class="detail-item">
+                    <label class="d-block">Apellidos: </label>
+                    <span>{{ user.last_name }}</span>
+                </div>
+                <div class="detail-item">
+                    <label class="d-block">Género: </label>
+                    <span>{{ user.gender }}</span>
+                </div>
+                <div class="detail-item">
+                    <label class="d-block">Fecha de Nacimiento: </label>
+                    <span>{{ user.birthdate | date: 'dd/MM/yyyy' }}</span>
+                </div>
+                <div class="detail-item">
+                    <label class="d-block">Lugar de Nacimiento: </label>
+                    <span>{{ user.birthplace }}</span>
+                </div>
+                <div class="detail-item">
+                    <label class="d-block">Teléfono: </label>
+                    <span>{{ user.phone }}</span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="detail-item">
+                    <label class="d-block">Correo Electrónico: </label>
+                    <span>{{ user.email ? user.email : 'N/A' }}</span>
+                </div>
+                <div class="detail-item">
+                    <label class="d-block">¿Qué podría enseñar?: </label>
+                    <span>{{ user.abilities ? user.abilities : 'N/A' }}</span>
+                </div>
+                <div class="detail-item">
+                    <label class="d-block">Rol: </label>
+                    <span>{{ user.role ? user.role : 'N/A' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer d-flex justify-content-center">
+    <button type="button" class="btn btn-primary" (click)="updateUser()">
+        Editar
+    </button>
+    <button type="button" class="btn btn-danger" (click)="deleteUser()">
+        Eliminar
+    </button>
+</div>
