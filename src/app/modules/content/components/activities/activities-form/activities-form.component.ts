@@ -46,6 +46,10 @@ export class ActivitiesFormComponent implements OnInit {
 		});
 	}
 
+	resetForm(): void {
+		this.activitiesForm.reset();
+	}
+
 	onSubmit(): void {
 		if (this.activitiesForm.valid) {
 			if (this.activityId) {

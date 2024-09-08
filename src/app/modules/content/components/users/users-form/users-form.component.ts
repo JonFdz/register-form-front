@@ -51,6 +51,10 @@ export class UsersFormComponent implements OnInit {
 		});
 	}
 
+	resetForm(): void {
+		this.usersForm.reset();
+	}
+
 	onSubmit(): void {
 		if (this.usersForm.valid) {
 			if (this.userId) {

@@ -1,14 +1,39 @@
 @import 'styles/_variables.scss';
 
 .icon {
-	width: 4em;
-	height: 4em;
-	vertical-align: middle;
-	margin-right: 10px;
+    width: 4vw;
+    height: 4vw;
+    vertical-align: middle;
+    margin-right: 1vw;
 }
 
 footer {
-	background-color: $secondary-color;
-	text-align: center;
-	padding: 20px 0;
+    background-color: $secondary-color;
+    text-align: center;
+    padding: 2vw 0;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .icon {
+        width: 6vw;
+        height: 6vw;
+        margin-right: 2vw;
+    }
+
+    footer {
+        padding: 3vw 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .icon {
+        width: 8vw;
+        height: 8vw;
+        margin-right: 3vw;
+    }
+
+    footer {
+        padding: 4vw 0;
+    }
 }

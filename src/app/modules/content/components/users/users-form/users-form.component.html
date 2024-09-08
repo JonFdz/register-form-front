@@ -147,6 +147,28 @@
                 </option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Enviar</button>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-between">
+                    <button
+                        type="button"
+                        id="btn-limpiar"
+                        class="btn btn-secondary"
+                        style="width: 10rem; height: 3rem"
+                        (click)="resetForm()"
+                    >
+                        Limpiar
+                    </button>
+                    <button
+                        type="submit"
+                        [disabled]="!usersForm.valid"
+                        class="btn btn-primary"
+                        style="width: 10rem; height: 3rem"
+                    >
+                        Enviar
+                    </button>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
