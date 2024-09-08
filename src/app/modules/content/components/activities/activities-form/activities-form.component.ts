@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ActivitiesService } from '@services/activities.service';
 
@@ -14,11 +14,13 @@ import { ActivitiesService } from '@services/activities.service';
 })
 export class ActivitiesFormComponent implements OnInit {
 	activitiesForm: FormGroup;
+	activityId: number | null = null;
 
 	constructor(
 		private fb: FormBuilder,
 		private activitiesService: ActivitiesService,
-		private router: Router
+		private router: Router,
+		private route: ActivatedRoute
 	) {
 		this.activitiesForm = this.fb.group({
 			activity_name: ['', Validators.required],
@@ -31,17 +33,38 @@ export class ActivitiesFormComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		const stringActivityId = this.route.snapshot.paramMap.get('id');
+		this.activityId = stringActivityId ? +stringActivityId : null;
+		if (this.activityId) {
+			this.loadActivityData(this.activityId);
+		}
+	}
 
+	loadActivityData(activityId: number): void {
+		this.activitiesService.getActivity(activityId).subscribe((activity: any) => {
+			this.activitiesForm.patchValue(activity);
+		});
 	}
 
 	onSubmit(): void {
 		if (this.activitiesForm.valid) {
-			this.activitiesService.createActivity(this.activitiesForm.value).subscribe((data: any) => {
-				console.log('Intercambio creado', data);
-				this.router.navigate(['/activities']);
-			});
+			if (this.activityId) {
+				this.activitiesService.updateActivity(this.activityId, this.activitiesForm.value).subscribe(() => {
+					alert('Intercambio actualizado correctamente');
+					console.log('Activity updated');
+					this.router.navigate(['activities/']);
+				});
+			} else {
+				this.activitiesService.createActivity(this.activitiesForm.value).subscribe(() => {
+					alert('Intercambio creado correctamente');
+					console.log('Activity created');
+					this.activitiesForm.reset();
+					this.router.navigate(['activities/']);
+				});
+			}
 		} else {
-			console.log('Formulario no válido');
+			alert('Formulario no válido');
+			console.log('Invalid form');
 		}
 	}
 }

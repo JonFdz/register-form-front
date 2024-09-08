@@ -1,23 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-// import { MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import { ActivitiesService } from '@services/activities.service';
 import { Activity } from '@models/activity.model';
 import { Router } from '@angular/router';
-// import { VmDialogComponent } from '@vm/components/vm-dialog/vm-dialog.component';
-
-// import { DateFormatterPipe } from '@shared/pipes/date-formatter.pipe';
+import { DialogComponent } from '@sharedcontent/dialog/dialog.component';
 
 @Component({
 	selector: 'app-activities-list',
 	templateUrl: './activities-list.component.html',
 	styleUrls: ['./activities-list.component.scss'],
 	standalone: true,
-	imports: [CommonModule, FormsModule,
-		//DateFormatterPipe, VmDialogComponent
-	]
+	imports: [CommonModule, FormsModule,]
 })
 export class ActivitiesListComponent implements OnInit {
 	activities: Activity[] = [];
@@ -28,7 +24,7 @@ export class ActivitiesListComponent implements OnInit {
 	constructor(
 		private activitiesService: ActivitiesService,
 		private router: Router,
-		// private dialog: MatDialog
+		private dialog: MatDialog
 	) { }
 
 	ngOnInit(): void {
@@ -41,13 +37,13 @@ export class ActivitiesListComponent implements OnInit {
 	filterActivities(): void {
 		this.filteredActivities = this.activities;
 
-		if (this.selectedDays.length > 0) {
+		if (this.selectedDays) {
 			this.filteredActivities = this.filteredActivities.filter(activity =>
 				this.selectedDays.some(day => activity.day.includes(day))
 			);
 		}
 
-		if (this.selectedCategories.length > 0) {
+		if (this.selectedCategories) {
 			this.filteredActivities = this.filteredActivities.filter(activity =>
 				this.selectedCategories.some(category => activity.category?.includes(category))
 			);
@@ -59,15 +55,15 @@ export class ActivitiesListComponent implements OnInit {
 	}
 
 
-	openDialog(vmId: number): void {
-		// this.dialog.open(VmDialogComponent, {
-		// 	data: vmId
-		// });
-		// this.dialog.afterAllClosed.subscribe(() => {
-		// 	this.vmService.getVms().subscribe(data => {
-		// 		this.vms = data;
-		// 		this.filteredVms = data;
-		// 	});
-		// });
+	openDialog(component: string, id: number): void {
+		this.dialog.open(DialogComponent, {
+			data: {component, id }
+		});
+		this.dialog.afterAllClosed.subscribe(() => {
+			this.activitiesService.getActivities().subscribe(data => {
+				this.activities = data;
+				this.filteredActivities = data;
+			});
+		});
 	}
 }
