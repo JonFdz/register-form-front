@@ -1,0 +1,12 @@
+<div class="backdrop" (click)="closeDialog()"></div>
+<div class="dialog-container">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @if (contentToShow === dialogType.Users) {
+				<app-users-details [userId]="id" (closeDialog)="closeDialog()" />
+			} @else if (contentToShow === dialogType.Activities) {
+				<app-activities-details [activityId]="+id" (closeDialog)="closeDialog()" />
+			}
+        </div>
+    </div>
+</div>
