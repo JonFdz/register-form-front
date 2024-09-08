@@ -142,6 +142,7 @@ export class InscriptionsFormComponent implements OnInit {
 
 	resetForm(): void {
 		this.inscriptionsForm.reset();
+		this.newUser = true;
 	}
 
 	onSubmit(): void {
