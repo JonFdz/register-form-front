@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <h5 class="modal-title">Detalles del Intercambio</h5>
+    <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="onCloseDialog()"
+    ></button>
+</div>
+<div class="modal-body">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="detail-item">
+                    <label class="d-block">Nombre del Intercambio: </label>
+                    <span>{{ activity.activity_name }}</span>
+                </div>
+                <div class="detail-item">
+                    <label class="d-block">Facilitador/a: </label>
+                    <span>{{ activity.instructor }}</span>
+                </div>
+                <div class="detail-item">
+                    <label class="d-block">Día: </label>
+                    <span>{{ activity.day }}</span>
+                </div>
+                <div class="detail-item">
+                    <label class="d-block">Hora: </label>
+                    <span>{{ activity.hour }}</span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="detail-item">
+                    <label class="d-block">Categoría: </label>
+                    <span>{{ activity.category ? activity.category : 'N/A' }}</span>
+                </div>
+                <div class="detail-item">
+                    <label class="d-block">Descripción: </label>
+                    <span>{{ activity.description ? activity.description : 'N/A' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer d-flex justify-content-center">
+    <button type="button" class="btn btn-primary" (click)="updateActivity()">
+        Editar
+    </button>
+    <button type="button" class="btn btn-danger" (click)="deleteActivity()">
+        Eliminar
+    </button>
+</div>
