@@ -3,22 +3,22 @@
         <img
             src="assets/xic_banner_tra.jpg"
             class="rounded border border-2 w-100"
-            alt="Banner plucitario de inscripciones XIC"
+            alt="Banner publicitari d'inscripcions XIC"
         />
     </div>
     <h1 id="title" class="p-2 ms-3 d-flex justify-content-center">
-        Lista de Usuarios
+        Llista d'Usuaris
     </h1>
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <button class="btn btn-primary me-3" (click)="addNewUser()">
-            Añadir Nuevo Usuario
+            Afegir Nou Usuari
         </button>
         <div class="d-flex filter-container">
             <div class="filter-group">
                 <i class="bi bi-funnel-fill me-2"></i>
                 <label for="userIdFilter" class="filter-label me-2"
-                    >Filtrar por DNI/NIE de Usuario:</label
+                    >Filtrar per DNI/NIE d'Usuari:</label
                 >
                 <input
                     id="userIdFilter"
@@ -41,12 +41,12 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <strong>DNI/NIE:</strong> {{ user.user_id }} |
-                    <strong>Nombre:</strong> {{ user.user_name }}
-                    {{ user.last_name }} | <strong>Género:</strong>
-                    {{ user.gender }} | <strong>Fecha de Nacimiento:</strong>
+                    <strong>Nom:</strong> {{ user.user_name }}
+                    {{ user.last_name }} | <strong>Gènere:</strong>
+                    {{ user.gender }} | <strong>Data de Naixement:</strong>
                     {{ user.birthdate | date : "dd/MM/yy" }} |
-                    <strong>Lugar de Nacimiento:</strong>
-                    {{ user.birthplace }} | <strong>Teléfono:</strong>
+                    <strong>Lloc de Naixement:</strong>
+                    {{ user.birthplace }} | <strong>Telèfon:</strong>
                     {{ user.phone }}
                     <span *ngIf="user.email"
                         >| <strong>Email:</strong> {{ user.email }}</span

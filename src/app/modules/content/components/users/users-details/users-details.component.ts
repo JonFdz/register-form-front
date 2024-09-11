@@ -36,7 +36,7 @@ export class UsersDetailsComponent implements OnInit {
 	}
 
 	deleteUser(): void {
-		if (confirm(`¿Estás seguro de que quieres eliminar el usuario ${this.user.user_id}?`)) {
+		if (confirm(`Estàs segur que vols eliminar l'usuari ${this.user.user_id}?`)) {
 			this.usersService.deleteUser(this.userId()!).subscribe(() => {
 				this.closeDialog.emit();
 			});

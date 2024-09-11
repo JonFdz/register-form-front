@@ -16,8 +16,8 @@ import { DialogComponent } from '@sharedcontent/dialog/dialog.component';
 })
 export class UsersFormComponent implements OnInit {
 	usersForm: FormGroup;
-	genders: string[] = ["Hombre", "Mujer", "Otro"];
-	roles: string[] = ["Xarxero", "Acogida", "Administrador"];
+	genders: string[] = ["Home", "Dona", "Altres"];
+	roles: string[] = ["Xarxero", "Acollida", "Administrador"];
 	userId: string | null = null;
 
 	constructor(
@@ -60,7 +60,7 @@ export class UsersFormComponent implements OnInit {
 
 	openDialog(component: string, status: 'success' | 'error', message: string): void {
 		this.dialog.open(DialogComponent, {
-			data: {component, status, message }
+			data: { component, status, message }
 		});
 		this.dialog.afterAllClosed.subscribe(() => {
 			window.scrollTo(0, 0);
@@ -71,18 +71,18 @@ export class UsersFormComponent implements OnInit {
 		if (this.usersForm.valid) {
 			if (this.userId) {
 				this.usersService.updateUser(this.userId, this.usersForm.value).subscribe(() => {
-					this.openDialog('Status', 'success', 'Usuario actualizado correctamente');
+					this.openDialog('Status', 'success', 'Usuari actualitzat correctament');
 					console.log('User updated');
 				});
 			} else {
 				this.usersService.createUser(this.usersForm.value).subscribe(() => {
-					this.openDialog('Status', 'success', 'Usuario creado correctamente');
+					this.openDialog('Status', 'success', 'Usuari creat correctament');
 					console.log('User created');
 				});
 			}
 			this.router.navigate(['users/']);
 		} else {
-			this.openDialog('Status', 'error', 'Formulario no válido');
+			this.openDialog('Status', 'error', 'Formulari invàlid');
 			console.log('Invalid form');
 		}
 	}

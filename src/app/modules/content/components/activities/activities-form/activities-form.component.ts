@@ -66,20 +66,20 @@ export class ActivitiesFormComponent implements OnInit {
 		if (this.activitiesForm.valid) {
 			if (this.activityId) {
 				this.activitiesService.updateActivity(this.activityId, this.activitiesForm.value).subscribe(() => {
-					this.openDialog('Status', 'success', 'Intercambio actualizado correctamente');
+					this.openDialog('Status', 'success', 'Intercanvi actualitzat correctament');
 					console.log('Activity updated');
 					this.router.navigate(['activities/']);
 				});
 			} else {
 				this.activitiesService.createActivity(this.activitiesForm.value).subscribe(() => {
-					this.openDialog('Status', 'success', 'Intercambio creado correctamente');
+					this.openDialog('Status', 'success', 'Intercanvi creat correctament');
 					console.log('Activity created');
 					this.activitiesForm.reset();
 					this.router.navigate(['activities/']);
 				});
 			}
 		} else {
-			this.openDialog('Status', 'error', 'Formulario inválido');
+			this.openDialog('Status', 'error', 'Formulari invàlid');
 			console.log('Invalid form');
 		}
 	}

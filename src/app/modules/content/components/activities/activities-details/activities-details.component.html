@@ -1,9 +1,9 @@
 <div class="modal-header">
-    <h5 class="modal-title">Detalles del Intercambio</h5>
+    <h5 class="modal-title">Detalls de l'Intercanvi</h5>
     <button
         type="button"
         class="btn-close"
-        aria-label="Close"
+        aria-label="Tancar"
         (click)="onCloseDialog()"
     ></button>
 </div>
@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col">
                 <div class="detail-item">
-                    <label class="d-block">Nombre del Intercambio: </label>
+                    <label class="d-block">Nom de l'Intercanvi: </label>
                     <span>{{ activity.activity_name }}</span>
                 </div>
                 <div class="detail-item">
@@ -20,7 +20,7 @@
                     <span>{{ activity.instructor }}</span>
                 </div>
                 <div class="detail-item">
-                    <label class="d-block">Día: </label>
+                    <label class="d-block">Dia: </label>
                     <span>{{ activity.day }}</span>
                 </div>
                 <div class="detail-item">
@@ -30,12 +30,16 @@
             </div>
             <div class="col">
                 <div class="detail-item">
-                    <label class="d-block">Categoría: </label>
-                    <span>{{ activity.category ? activity.category : 'N/A' }}</span>
+                    <label class="d-block">Categoria: </label>
+                    <span>{{
+                        activity.category ? activity.category : "N/A"
+                    }}</span>
                 </div>
                 <div class="detail-item">
-                    <label class="d-block">Descripción: </label>
-                    <span>{{ activity.description ? activity.description : 'N/A' }}</span>
+                    <label class="d-block">Descripció: </label>
+                    <span>{{
+                        activity.description ? activity.description : "N/A"
+                    }}</span>
                 </div>
             </div>
         </div>

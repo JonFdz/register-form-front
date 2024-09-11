@@ -3,11 +3,11 @@
         <img
             src="assets/xic_banner_tra.jpg"
             class="rounded border border-2 w-100"
-            alt="Banner publicitario de inscripciones XIC"
+            alt="Banner publicitari d'inscripcions XIC"
         />
     </div>
     <h1 id="title" class="p-2 ms-3 d-flex justify-content-center">
-        Registro de Usuario
+        Registre d'Usuari
     </h1>
     <form
         [formGroup]="usersForm"
@@ -30,7 +30,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="user_name" class="form-label"
-                >Nombre<font color="red">*</font></label
+                >Nom<font color="red">*</font></label
             >
             <input
                 formControlName="user_name"
@@ -43,7 +43,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="last_name" class="form-label"
-                >Apellidos<font color="red">*</font></label
+                >Cognoms<font color="red">*</font></label
             >
             <input
                 formControlName="last_name"
@@ -55,7 +55,7 @@
             />
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
-            <label class="form-label">Género<font color="red">*</font></label>
+            <label class="form-label">Gènere<font color="red">*</font></label>
             <div *ngFor="let gender of genders">
                 <div class="form-check form-check-inline">
                     <input
@@ -75,7 +75,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="birthdate" class="form-label"
-                >Fecha de Nacimiento<font color="red">*</font></label
+                >Data de Naixement<font color="red">*</font></label
             >
             <input
                 formControlName="birthdate"
@@ -88,7 +88,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="birthplace" class="form-label"
-                >Lugar de Nacimiento<font color="red">*</font></label
+                >Lloc de Naixement<font color="red">*</font></label
             >
             <input
                 formControlName="birthplace"
@@ -101,7 +101,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="phone" class="form-label"
-                >Teléfono<font color="red">*</font></label
+                >Telèfon<font color="red">*</font></label
             >
             <input
                 formControlName="phone"
@@ -113,7 +113,7 @@
             />
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
-            <label for="email" class="form-label">Correo Electrónico</label>
+            <label for="email" class="form-label">Correu Electrònic</label>
             <input
                 formControlName="email"
                 type="email"
@@ -124,7 +124,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="abilities" class="form-label"
-                >¿Qué podría enseñar?</label
+                >Què podria ensenyar?</label
             >
             <textarea
                 formControlName="abilities"
@@ -157,7 +157,7 @@
                         style="width: 10rem; height: 3rem"
                         (click)="resetForm()"
                     >
-                        Limpiar
+                        Netejar
                     </button>
                     <button
                         type="submit"

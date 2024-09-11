@@ -6,9 +6,7 @@ import { ActivitiesService } from '@services/activities.service';
 import { UsersService } from '@services/users.service';
 import { FormsModule } from '@angular/forms';
 
-import { Activity } from '@models/activity.model';
 import { Inscription } from '@models/inscription.model';
-import { User } from '@models/user.model';
 
 @Component({
 	selector: 'app-export',
@@ -46,19 +44,19 @@ export class ExportComponent {
 		this.inscriptionsService.getInscriptions().subscribe((data: any) => {
 			const filteredData = this.filterByDate(data);
 			const sortedData = filteredData.sort((a: Inscription, b: Inscription) => a.inscription_id! - b.inscription_id!);
-			this.downloadCSV(sortedData, 'inscriptions.csv');
+			this.downloadCSV(sortedData, 'inscripcions.csv');
 		});
 	}
 
 	private exportActivities(): void {
 		this.activitiesService.getActivities().subscribe((data: any) => {
-			this.downloadCSV(data, 'activities.csv');
+			this.downloadCSV(data, 'intercanvis.csv');
 		});
 	}
 
 	private exportUsers(): void {
 		this.usersService.getUsers().subscribe((data: any) => {
-			this.downloadCSV(data, 'users.csv');
+			this.downloadCSV(data, 'usuaris.csv');
 		});
 	}
 

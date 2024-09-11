@@ -3,17 +3,17 @@
         <img
             src="assets/xic_banner_tra.jpg"
             class="rounded border border-2 w-100"
-            alt="Banner plucitario de inscripciones XIC"
+            alt="Banner publicitari d'inscripcions XIC"
         />
     </div>
     <h1 id="title" class="p-2 ms-3 d-flex justify-content-center">
-        Exportar Datos
+        Exportar Dades
     </h1>
     <form class="row g-3">
         <div class="col-12 d-flex justify-content-center">
             <div class="col-md-4">
                 <label for="exportType" class="form-label"
-                    >Tipo de Exportación</label
+                    >Tipus d'Exportació</label
                 >
                 <select
                     id="exportType"
@@ -21,16 +21,16 @@
                     [(ngModel)]="exportType"
                     name="exportType"
                 >
-                    <option value="inscriptions">Inscripciones</option>
-                    <option value="activities">Actividades</option>
-                    <option value="users">Usuarios</option>
+                    <option value="inscriptions">Inscripcions</option>
+                    <option value="activities">Intercanvis</option>
+                    <option value="users">Usuaris</option>
                 </select>
             </div>
         </div>
         <div *ngIf="exportType === 'inscriptions'" class="w-100"></div>
         <!-- Clear row -->
         <div *ngIf="exportType === 'inscriptions'" class="col-md-6">
-            <label for="startDate" class="form-label">Fecha de Inicio</label>
+            <label for="startDate" class="form-label">Data d'Inici</label>
             <input
                 type="date"
                 class="form-control"
@@ -40,7 +40,7 @@
             />
         </div>
         <div *ngIf="exportType === 'inscriptions'" class="col-md-6">
-            <label for="endDate" class="form-label">Fecha de Fin</label>
+            <label for="endDate" class="form-label">Data de Fi</label>
             <input
                 type="date"
                 class="form-control"
@@ -55,7 +55,7 @@
                 class="btn btn-primary"
                 (click)="exportFile()"
             >
-                Exportar Archivo
+                Exportar Arxiu
             </button>
         </div>
     </form>

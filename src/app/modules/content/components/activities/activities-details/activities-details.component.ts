@@ -36,7 +36,7 @@ export class ActivitiesDetailsComponent implements OnInit {
 	}
 
 	deleteActivity(): void {
-		if (confirm(`¿Estás seguro de que quieres eliminar el intercambio ${this.activity.activity_name}?`)) {
+		if (confirm(`Estàs segur que vols eliminar l'intercanvi ${this.activity.activity_name}?`)) {
 			this.usersService.deleteActivity(this.activityId()!).subscribe(() => {
 				this.closeDialog.emit();
 			});

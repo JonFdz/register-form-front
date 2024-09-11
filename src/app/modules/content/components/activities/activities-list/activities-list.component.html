@@ -3,71 +3,85 @@
         <img
             src="assets/xic_banner_tra.jpg"
             class="rounded border border-2 w-100"
-            alt="Banner plucitario de inscripciones XIC"
+            alt="Banner publicitari d'inscripcions XIC"
         />
     </div>
     <h1 id="title" class="p-2 ms-3 d-flex justify-content-center">
-        Lista de Intercambios XIC
+        Llista d'Intercanvis XIC
     </h1>
 
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
-        <!-- Botón de Añadir Nueva Entrada -->
-        <button class="btn btn-primary mb-3 mb-md-0 me-md-3" (click)="addNewActivity()">
-            Añadir Nueva Entrada
+    <div
+        class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3"
+    >
+        <button
+            class="btn btn-primary mb-3 mb-md-0 me-md-3"
+            (click)="addNewActivity()"
+        >
+            Afegir Nova Entrada
         </button>
 
-        <!-- Contenedor de Filtros -->
         <div class="d-flex flex-wrap align-items-center filter-container">
-            <!-- Grupo de Filtros por Día -->
             <div class="filter-group">
                 <i class="bi bi-funnel-fill me-2"></i>
-                <label for="dayFilter" class="filter-label">Filtrar por Día:</label>
+                <label for="dayFilter" class="filter-label"
+                    >Filtrar per Dia:</label
+                >
                 <select
                     id="dayFilter"
                     class="form-select me-4 filter-input"
                     [(ngModel)]="selectedDays"
                     (change)="filterActivities()"
                 >
-                    <option value="">Todos</option>
-                    <option value="Lunes">Lunes</option>
-                    <option value="Martes">Martes</option>
-                    <option value="Miércoles">Miércoles</option>
-                    <option value="Jueves">Jueves</option>
-                    <option value="Viernes">Viernes</option>
-                    <option value="Sábado">Sábado</option>
-                    <option value="Domingo">Domingo</option>
+                    <option value="">Tots</option>
+                    <option value="Dilluns">Dilluns</option>
+                    <option value="Dimarts">Dimarts</option>
+                    <option value="Dimecres">Dimecres</option>
+                    <option value="Dijous">Dijous</option>
+                    <option value="Divendres">Divendres</option>
+                    <option value="Dissabte">Dissabte</option>
+                    <option value="Diumenge">Diumenge</option>
                 </select>
             </div>
 
-            <!-- Grupo de Filtros por Categoría -->
             <div class="filter-group">
                 <i class="bi bi-funnel-fill me-2"></i>
-                <label for="categoryFilter" class="filter-label">Filtrar por Categoría:</label>
+                <label for="categoryFilter" class="filter-label"
+                    >Filtrar per Categoria:</label
+                >
                 <select
                     id="categoryFilter"
                     class="form-select filter-input"
                     [(ngModel)]="selectedCategories"
                     (change)="filterActivities()"
                 >
-                    <option value="">Todas</option>
-                    <option value="Arte">Arte</option>
-                    <option value="Deportes">Deportes</option>
-                    <option value="Cocina">Cocina</option>
-                    <option value="Teatro">Teatro</option>
+                    <option value="">Totes</option>
+                    <option value="Art">Art</option>
+                    <option value="Idiomas">Idiomes</option>
+                    <option value="Salut">Salut</option>
                 </select>
             </div>
         </div>
     </div>
 
     <ul class="list-group">
-        <li *ngFor="let activity of filteredActivities; let i = index" class="list-group-item" (click)="openDialog('Activities', activity.activity_id!)">
+        <li
+            *ngFor="let activity of filteredActivities; let i = index"
+            class="list-group-item"
+            (click)="openDialog('Activities', activity.activity_id!)"
+        >
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <strong>{{ i + 1 }}. Intercambio:</strong> {{ activity.activity_name }} |
+                    <strong>{{ i + 1 }}. Intercanvi:</strong>
+                    {{ activity.activity_name }} |
                     <strong>Facilitador/a:</strong> {{ activity.instructor }} |
-                    <strong>Día:</strong> {{ activity.day }} |
+                    <strong>Dia:</strong> {{ activity.day }} |
                     <strong>Hora:</strong> {{ activity.hour }}
-                    <strong>Categoría:</strong> {{ activity.category ? activity.category : 'Sin categoría' }}
+                    <strong>Categoria:</strong>
+                    {{
+                        activity.category
+                            ? activity.category
+                            : "Sense categoria"
+                    }}
                 </div>
             </div>
         </li>

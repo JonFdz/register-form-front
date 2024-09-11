@@ -22,7 +22,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class InscriptionsFormComponent implements OnInit {
 	inscriptionsForm: FormGroup;
-	genders: string[] = ["Hombre", "Mujer", "Otro"];
+	genders: string[] = ["Home", "Dona", "Altres"];
 	activities: Activity[] = [];
 	referrers: User[] = []
 	fee: number = 0;
@@ -57,7 +57,7 @@ export class InscriptionsFormComponent implements OnInit {
 			this.activities = data;
 		});
 		this.usersService.getUsers().subscribe((data: any) => {
-			this.referrers = data.filter((user: User) => user.role === 'Acogida');
+			this.referrers = data.filter((user: User) => user.role === 'Acollida');
 		});
 	}
 
@@ -108,7 +108,7 @@ export class InscriptionsFormComponent implements OnInit {
 			this.usersService.getUser(userId).pipe(
 				catchError((error) => {
 					if (error.error.code === "no_user") {
-						this.openDialog('Status', 'error', 'No se encontraron datos de ' + userId);
+						this.openDialog('Status', 'error', "No s'han trobat dades de " + userId);
 						console.error("No user found with ID: ", userId);
 					}
 					console.error("Error fetching user: ", error);
@@ -128,7 +128,7 @@ export class InscriptionsFormComponent implements OnInit {
 							abilities: user.abilities
 						});
 						this.newUser = false;
-						this.openDialog('Status', 'success', 'Usuario encontrado: ' + user.user_name + ' ' + user.last_name);
+						this.openDialog('Status', 'success', 'Usuari trobat: ' + user.user_name + ' ' + user.last_name);
 					}
 				},
 				error: (error) => {
@@ -136,7 +136,7 @@ export class InscriptionsFormComponent implements OnInit {
 				}
 			});
 		} else {
-			this.openDialog('Status', 'error', 'Introduzca DNI/NIE del usuario');
+			this.openDialog('Status', 'error', "Introdueixi DNI/NIE de l'usuari");
 			console.error("No user ID provided.");
 		}
 	}
@@ -172,7 +172,7 @@ export class InscriptionsFormComponent implements OnInit {
 			})
 		).subscribe({
 			next: (data: any) => {
-				this.openDialog('Status', 'success', 'Inscripción creada correctamente.');
+				this.openDialog('Status', 'success', 'Inscripció creada correctament.');
 				console.log("Inscription created successfully: " + data);
 			},
 			error: (error) => {

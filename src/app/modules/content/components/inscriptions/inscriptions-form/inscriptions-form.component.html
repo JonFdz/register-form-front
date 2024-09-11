@@ -3,7 +3,7 @@
         <img
             src="assets/xic_banner_tra.jpg"
             class="rounded border border-2 w-100"
-            alt="Banner plucitario de inscripciones XIC"
+            alt="Banner publicitari d'inscripcions XIC"
         />
     </div>
     <form
@@ -37,7 +37,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="user_name" class="form-label"
-                >Nombre<font color="red">*</font></label
+                >Nom<font color="red">*</font></label
             >
             <input
                 formControlName="user_name"
@@ -50,7 +50,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="last_name" class="form-label"
-                >Apellido<font color="red">*</font></label
+                >Cognom<font color="red">*</font></label
             >
             <input
                 formControlName="last_name"
@@ -62,7 +62,7 @@
             />
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
-            <label class="form-label">Género<font color="red">*</font></label>
+            <label class="form-label">Gènere<font color="red">*</font></label>
             <div *ngFor="let gender of genders">
                 <div class="form-check form-check-inline">
                     <input
@@ -82,7 +82,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="birthdate" class="form-label"
-                >Fecha de nacimiento<font color="red">*</font></label
+                >Data de naixement<font color="red">*</font></label
             >
             <input
                 formControlName="birthdate"
@@ -95,7 +95,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="birthplace" class="form-label"
-                >Lugar de nacimiento<font color="red">*</font></label
+                >Lloc de naixement<font color="red">*</font></label
             >
             <input
                 formControlName="birthplace"
@@ -108,7 +108,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="phone" class="form-label"
-                >Teléfono<font color="red">*</font></label
+                >Telèfon<font color="red">*</font></label
             >
             <input
                 formControlName="phone"
@@ -120,7 +120,7 @@
             />
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
-            <label for="email" class="form-label">Correo Electrónico</label>
+            <label for="email" class="form-label">Correu Electrònic</label>
             <input
                 formControlName="email"
                 type="email"
@@ -131,7 +131,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="activity1" class="form-label"
-                >Intercambio 1<font color="red">*</font></label
+                >Intercanvi 1<font color="red">*</font></label
             >
             <select
                 formControlName="activity1"
@@ -145,7 +145,8 @@
                     *ngFor="let activity of activities; let i = index"
                     [value]="activity.activity_id"
                 >
-				{{ i + 1 }}. {{
+                    {{ i + 1 }}.
+                    {{
                         activity.activity_name +
                             " | " +
                             activity.instructor +
@@ -158,7 +159,7 @@
             </select>
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
-            <label for="activity2" class="form-label">Intercambio 2</label>
+            <label for="activity2" class="form-label">Intercanvi 2</label>
             <select
                 formControlName="activity2"
                 class="form-select"
@@ -170,7 +171,8 @@
                     *ngFor="let activity of activities; let i = index"
                     [value]="activity.activity_id"
                 >
-				{{ i + 1 }}. {{
+                    {{ i + 1 }}.
+                    {{
                         activity.activity_name +
                             " | " +
                             activity.instructor +
@@ -183,7 +185,7 @@
             </select>
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
-            <label for="activity3" class="form-label">Intercambio 3</label>
+            <label for="activity3" class="form-label">Intercanvi 3</label>
             <select
                 formControlName="activity3"
                 class="form-select"
@@ -195,7 +197,8 @@
                     *ngFor="let activity of activities; let i = index"
                     [value]="activity.activity_id"
                 >
-				{{ i + 1 }}. {{
+                    {{ i + 1 }}.
+                    {{
                         activity.activity_name +
                             " | " +
                             activity.instructor +
@@ -209,7 +212,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="abilities" class="form-label"
-                >¿Qué podría enseñar?</label
+                >Què podria ensenyar?</label
             >
             <textarea
                 formControlName="abilities"
@@ -222,7 +225,7 @@
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label class="form-label"
-                >Paga cuota<font color="red">*</font></label
+                >Quota<font color="red">*</font></label
             >
             <div>
                 <input
@@ -238,14 +241,14 @@
                         fee +
                             "€ | " +
                             (fee === 0 ? 0 : fee / 5) +
-                            " Intercambio/s"
+                            " Intercanvi/s"
                     }}
                 </div>
             </div>
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="referred" class="form-label"
-                >Acogida<font color="red">*</font></label
+                >Acollida<font color="red">*</font></label
             >
             <select
                 formControlName="referred"
@@ -274,7 +277,7 @@
                         style="width: 10rem; height: 3rem"
                         (click)="resetForm()"
                     >
-                        Limpiar
+                        Netejar
                     </button>
                     <button
                         type="submit"
