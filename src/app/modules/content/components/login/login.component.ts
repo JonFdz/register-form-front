@@ -47,11 +47,11 @@ export class LoginComponent implements OnInit {
 						window.scrollTo(0, 0);
 					});
 				} else {
-					this.openDialog('status-message', 'error', 'Login failed');
+					this.openDialog('Status', 'error', 'Login failed');
 				}
 			},
 			error: () => {
-				this.openDialog('status-message', 'error', 'Login failed');
+				this.openDialog('Status', 'error', 'Login failed');
 			}
 		});
 	}

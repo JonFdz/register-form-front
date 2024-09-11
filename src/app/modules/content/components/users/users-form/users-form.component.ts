@@ -71,20 +71,18 @@ export class UsersFormComponent implements OnInit {
 		if (this.usersForm.valid) {
 			if (this.userId) {
 				this.usersService.updateUser(this.userId, this.usersForm.value).subscribe(() => {
-					this.openDialog('status-message', 'success', 'Usuario actualizado correctamente');
+					this.openDialog('Status', 'success', 'Usuario actualizado correctamente');
 					console.log('User updated');
-					this.router.navigate(['users/']);
 				});
 			} else {
 				this.usersService.createUser(this.usersForm.value).subscribe(() => {
-					this.openDialog('status-message', 'success', 'Usuario creado correctamente');
+					this.openDialog('Status', 'success', 'Usuario creado correctamente');
 					console.log('User created');
-					this.usersForm.reset();
-					this.router.navigate(['users/']);
 				});
 			}
+			this.router.navigate(['users/']);
 		} else {
-			this.openDialog('status-message', 'error', 'Formulario no válido');
+			this.openDialog('Status', 'error', 'Formulario no válido');
 			console.log('Invalid form');
 		}
 	}
