@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { catchError, merge, throwError } from 'rxjs';
@@ -148,7 +148,7 @@ export class InscriptionsFormComponent implements OnInit {
 
 	openDialog(component: string, status: 'success' | 'error', message: string): void {
 		this.dialog.open(DialogComponent, {
-			data: {component, status, message }
+			data: { component, status, message }
 		});
 		this.dialog.afterAllClosed.subscribe(() => {
 			window.scrollTo(0, 0);
@@ -182,49 +182,61 @@ export class InscriptionsFormComponent implements OnInit {
 		this.inscriptionsForm.reset();
 	}
 
-	onSubmit(): void {
-		const user: User = {
-			user_id: this.inscriptionsForm.get('user_id')!.value,
-			user_name: this.inscriptionsForm.get('user_name')!.value,
-			last_name: this.inscriptionsForm.get('last_name')!.value,
-			gender: this.inscriptionsForm.get('gender')!.value,
-			birthdate: this.inscriptionsForm.get('birthdate')!.value,
-			birthplace: this.inscriptionsForm.get('birthplace')!.value,
-			phone: this.inscriptionsForm.get('phone')!.value,
-			email: this.inscriptionsForm.get('email')?.value,
-			abilities: this.inscriptionsForm.get('abilities')?.value
-		};
+	highlightInvalidFields(form: FormGroup) {
+		Object.keys(form.controls).forEach((field) => {
+			const control = form.get(field);
+			control?.markAsTouched({ onlySelf: true });
+		});
+	}
 
-		if (this.newUser) {
-			this.usersService.createUser(user).pipe(
-				catchError((error) => {
-					console.error("Error creating user: ", error);
-					return throwError(() => error);
-				})
-			).subscribe({
-				next: (data: any) => {
-					console.log("User created successfully: " + data);
-					this.createInscription(user.user_id);
-				},
-				error: (error) => {
-					console.error("There was an error during the user creation: ", error);
-				}
-			});
+	onSubmit(): void {
+		if (this.inscriptionsForm.invalid) {
+			this.highlightInvalidFields(this.inscriptionsForm);
+			this.openDialog('Status', 'error', 'Revisa els camps marcats en vermell.');
 		} else {
-			this.usersService.updateUser(user.user_id, user).pipe(
-				catchError((error) => {
-					console.error("Error updating user: ", error);
-					return throwError(() => error);
-				})
-			).subscribe({
-				next: (data: any) => {
-					console.log("User updated successfully: " + data);
-					this.createInscription(user.user_id);
-				},
-				error: (error) => {
-					console.error("There was an error during the user update: ", error);
-				}
-			});
+			const user: User = {
+				user_id: this.inscriptionsForm.get('user_id')!.value,
+				user_name: this.inscriptionsForm.get('user_name')!.value,
+				last_name: this.inscriptionsForm.get('last_name')!.value,
+				gender: this.inscriptionsForm.get('gender')!.value,
+				birthdate: this.inscriptionsForm.get('birthdate')!.value,
+				birthplace: this.inscriptionsForm.get('birthplace')!.value,
+				phone: this.inscriptionsForm.get('phone')!.value,
+				email: this.inscriptionsForm.get('email')?.value,
+				abilities: this.inscriptionsForm.get('abilities')?.value
+			};
+
+			if (this.newUser) {
+				this.usersService.createUser(user).pipe(
+					catchError((error) => {
+						console.error("Error creating user: ", error);
+						return throwError(() => error);
+					})
+				).subscribe({
+					next: (data: any) => {
+						console.log("User created successfully: " + data);
+						this.createInscription(user.user_id);
+					},
+					error: (error) => {
+						console.error("There was an error during the user creation: ", error);
+					}
+				});
+			} else {
+				this.usersService.updateUser(user.user_id, user).pipe(
+					catchError((error) => {
+						console.error("Error updating user: ", error);
+						return throwError(() => error);
+					})
+				).subscribe({
+					next: (data: any) => {
+						console.log("User updated successfully: " + data);
+						this.createInscription(user.user_id);
+					},
+					error: (error) => {
+						console.error("There was an error during the user update: ", error);
+					}
+				});
+			}
 		}
 	}
 }

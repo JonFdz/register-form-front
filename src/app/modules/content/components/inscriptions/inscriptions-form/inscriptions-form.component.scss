@@ -25,6 +25,11 @@
 	}
 }
 
+.ng-invalid.ng-touched {
+	border-color: red;
+	box-shadow: 0 0 5px red;
+}
+
 .btn-primary {
 	background-color: $primary-color;
 	border: none;
