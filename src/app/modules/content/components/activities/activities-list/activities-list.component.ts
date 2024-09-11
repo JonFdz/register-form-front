@@ -18,8 +18,8 @@ import { DialogComponent } from '@sharedcontent/dialog/dialog.component';
 export class ActivitiesListComponent implements OnInit {
 	activities: Activity[] = [];
 	filteredActivities: Activity[] = [];
-	selectedDays: string[] = [];
-	selectedCategories: string[] = [];
+	selectedDay: string = '';
+	selectedCategory: string = '';
 
 	constructor(
 		private activitiesService: ActivitiesService,
@@ -37,16 +37,12 @@ export class ActivitiesListComponent implements OnInit {
 	filterActivities(): void {
 		this.filteredActivities = this.activities;
 
-		if (this.selectedDays) {
-			this.filteredActivities = this.filteredActivities.filter(activity =>
-				this.selectedDays.some(day => activity.day.includes(day))
-			);
+		if (this.selectedDay) {
+			this.filteredActivities = this.filteredActivities.filter((activity) => activity.day === this.selectedDay);
 		}
-
-		if (this.selectedCategories) {
-			this.filteredActivities = this.filteredActivities.filter(activity =>
-				this.selectedCategories.some(category => activity.category?.includes(category))
-			);
+		
+		if (this.selectedCategory) {
+			this.filteredActivities = this.filteredActivities.filter((activity) => activity.category === this.selectedCategory);
 		}
 	}
 

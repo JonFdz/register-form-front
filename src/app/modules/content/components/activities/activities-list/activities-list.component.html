@@ -29,7 +29,7 @@
                 <select
                     id="dayFilter"
                     class="form-select me-4 filter-input"
-                    [(ngModel)]="selectedDays"
+                    [(ngModel)]="selectedDay"
                     (change)="filterActivities()"
                 >
                     <option value="">Tots</option>
@@ -51,7 +51,7 @@
                 <select
                     id="categoryFilter"
                     class="form-select filter-input"
-                    [(ngModel)]="selectedCategories"
+                    [(ngModel)]="selectedCategory"
                     (change)="filterActivities()"
                 >
                     <option value="">Totes</option>
