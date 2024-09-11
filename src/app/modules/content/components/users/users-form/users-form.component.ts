@@ -67,8 +67,18 @@ export class UsersFormComponent implements OnInit {
 		});
 	}
 
+	highlightInvalidFields(form: FormGroup) {
+		Object.keys(form.controls).forEach((field) => {
+			const control = form.get(field);
+			control?.markAsTouched({ onlySelf: true });
+		});
+	}
+
 	onSubmit(): void {
-		if (this.usersForm.valid) {
+		if (this.usersForm.invalid) {
+			this.highlightInvalidFields(this.usersForm);
+			this.openDialog('Status', 'error', 'Revisa els camps marcats en vermell.');
+		} else {
 			if (this.userId) {
 				this.usersService.updateUser(this.userId, this.usersForm.value).subscribe(() => {
 					this.openDialog('Status', 'success', 'Usuari actualitzat correctament');
@@ -81,9 +91,6 @@ export class UsersFormComponent implements OnInit {
 				});
 			}
 			this.router.navigate(['users/']);
-		} else {
-			this.openDialog('Status', 'error', 'Formulari invàlid');
-			console.log('Invalid form');
 		}
 	}
 }

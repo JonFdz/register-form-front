@@ -62,8 +62,18 @@ export class ActivitiesFormComponent implements OnInit {
 		});
 	}
 
+	highlightInvalidFields(form: FormGroup) {
+		Object.keys(form.controls).forEach((field) => {
+			const control = form.get(field);
+			control?.markAsTouched({ onlySelf: true });
+		});
+	}
+
 	onSubmit(): void {
-		if (this.activitiesForm.valid) {
+		if (this.activitiesForm.invalid) {
+				this.highlightInvalidFields(this.activitiesForm);
+				this.openDialog('Status', 'error', 'Revisa els camps marcats en vermell.');
+		} else {
 			if (this.activityId) {
 				this.activitiesService.updateActivity(this.activityId, this.activitiesForm.value).subscribe(() => {
 					this.openDialog('Status', 'success', 'Intercanvi actualitzat correctament');
@@ -78,9 +88,6 @@ export class ActivitiesFormComponent implements OnInit {
 					this.router.navigate(['activities/']);
 				});
 			}
-		} else {
-			this.openDialog('Status', 'error', 'Formulari invàlid');
-			console.log('Invalid form');
 		}
 	}
 }
