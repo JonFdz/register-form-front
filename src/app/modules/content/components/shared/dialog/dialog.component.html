@@ -6,6 +6,8 @@
 				<app-users-details [userId]="id" (closeDialog)="closeDialog()" />
 			} @else if (contentToShow === dialogType.Activities) {
 				<app-activities-details [activityId]="+id" (closeDialog)="closeDialog()" />
+			} @else if (contentToShow === dialogType.Status) {
+				<app-status-message [status]="status" [message]="message" (closeDialog)="closeDialog()" />
 			}
         </div>
     </div>

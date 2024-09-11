@@ -1,0 +1,20 @@
+<div class="status-window">
+    <div class="icon-container">
+        <div *ngIf="status() === 'success'" class="icon success">
+            <i class="bi bi-check-circle-fill"></i>
+            <!-- Tick verde -->
+        </div>
+        <div *ngIf="status() === 'error'" class="icon error">
+            <i class="bi bi-x-circle-fill"></i>
+            <!-- Equis roja -->
+        </div>
+    </div>
+    <div class="message-container">
+        <p>{{ message() }}</p>
+    </div>
+    <div class="button-container">
+        <button class="btn btn-primary" (click)="onCloseDialog()">
+            Aceptar
+        </button>
+    </div>
+</div>

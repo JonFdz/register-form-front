@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { UsersService } from '@services/users.service';
+import { DialogComponent } from '@sharedcontent/dialog/dialog.component';
 
 @Component({
 	selector: 'app-users-form',
@@ -22,7 +24,8 @@ export class UsersFormComponent implements OnInit {
 		private fb: FormBuilder,
 		private usersService: UsersService,
 		private router: Router,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private dialog: MatDialog,
 	) {
 		this.usersForm = this.fb.group({
 			user_id: ['', Validators.required],
@@ -55,24 +58,33 @@ export class UsersFormComponent implements OnInit {
 		this.usersForm.reset();
 	}
 
+	openDialog(component: string, status: 'success' | 'error', message: string): void {
+		this.dialog.open(DialogComponent, {
+			data: {component, status, message }
+		});
+		this.dialog.afterAllClosed.subscribe(() => {
+			window.scrollTo(0, 0);
+		});
+	}
+
 	onSubmit(): void {
 		if (this.usersForm.valid) {
 			if (this.userId) {
 				this.usersService.updateUser(this.userId, this.usersForm.value).subscribe(() => {
-					alert('Usuario actualizado correctamente');
+					this.openDialog('status-message', 'success', 'Usuario actualizado correctamente');
 					console.log('User updated');
 					this.router.navigate(['users/']);
 				});
 			} else {
 				this.usersService.createUser(this.usersForm.value).subscribe(() => {
-					alert('Usuario creado correctamente');
+					this.openDialog('status-message', 'success', 'Usuario creado correctamente');
 					console.log('User created');
 					this.usersForm.reset();
 					this.router.navigate(['users/']);
 				});
 			}
 		} else {
-			alert('Formulario no válido');
+			this.openDialog('status-message', 'error', 'Formulario no válido');
 			console.log('Invalid form');
 		}
 	}

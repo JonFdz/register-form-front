@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DialogComponent } from '@sharedcontent/dialog/dialog.component';
 import { AuthService } from 'app/modules/auth/auth.service';
 
 @Component({
@@ -18,11 +20,20 @@ export class LoginComponent implements OnInit {
 	constructor(
 		private authService: AuthService,
 		private router: Router,
-		private route: ActivatedRoute
+		private dialog: MatDialog,
 	) { }
 
 	ngOnInit(): void {
 		this.returnUrl = this.authService.returnUrl || '/';
+	}
+
+	openDialog(component: string, status: 'success' | 'error', message: string): void {
+		this.dialog.open(DialogComponent, {
+			data: {component, status, message }
+		});
+		this.dialog.afterAllClosed.subscribe(() => {
+			window.scrollTo(0, 0);
+		});
 	}
 
 	onSubmit(): void {
@@ -36,11 +47,11 @@ export class LoginComponent implements OnInit {
 						window.scrollTo(0, 0);
 					});
 				} else {
-					alert('Login failed');
+					this.openDialog('status-message', 'error', 'Login failed');
 				}
 			},
 			error: () => {
-				alert('Login failed');
+				this.openDialog('status-message', 'error', 'Login failed');
 			}
 		});
 	}

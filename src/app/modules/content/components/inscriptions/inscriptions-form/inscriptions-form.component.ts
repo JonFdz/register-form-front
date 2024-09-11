@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { catchError, merge, throwError } from 'rxjs';
 
 import { UsersService } from '@services/users.service';
@@ -11,6 +10,8 @@ import { InscriptionsService } from '@services/inscriptions.service';
 import { User } from '@models/user.model';
 import { Activity } from '@models/activity.model';
 import { Inscription } from '@models/inscription.model';
+import { DialogComponent } from '@sharedcontent/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
 	selector: 'app-inscriptions-form',
@@ -32,7 +33,7 @@ export class InscriptionsFormComponent implements OnInit {
 		private usersService: UsersService,
 		private activitiesService: ActivitiesService,
 		private inscriptionsService: InscriptionsService,
-		private router: Router,
+		private dialog: MatDialog,
 	) {
 		this.inscriptionsForm = this.fb.group({
 			user_id: [null, Validators.required],
@@ -107,7 +108,7 @@ export class InscriptionsFormComponent implements OnInit {
 			this.usersService.getUser(userId).pipe(
 				catchError((error) => {
 					if (error.error.code === "no_user") {
-						alert("No se encontraron datos de " + userId);
+						this.openDialog('Status', 'error', 'No se encontraron datos de ' + userId);
 						console.error("No user found with ID: ", userId);
 					}
 					console.error("Error fetching user: ", error);
@@ -127,7 +128,7 @@ export class InscriptionsFormComponent implements OnInit {
 							abilities: user.abilities
 						});
 						this.newUser = false;
-						alert("Datos de " + userId + " importados correctamente.");
+						this.openDialog('Status', 'success', 'Usuario encontrado: ' + user.user_name + ' ' + user.last_name);
 					}
 				},
 				error: (error) => {
@@ -135,7 +136,7 @@ export class InscriptionsFormComponent implements OnInit {
 				}
 			});
 		} else {
-			alert("Por favor, introduzca un DNI/NIE de usuario.");
+			this.openDialog('Status', 'error', 'Introduzca DNI/NIE del usuario');
 			console.error("No user ID provided.");
 		}
 	}
@@ -143,6 +144,42 @@ export class InscriptionsFormComponent implements OnInit {
 	resetForm(): void {
 		this.inscriptionsForm.reset();
 		this.newUser = true;
+	}
+
+	openDialog(component: string, status: 'success' | 'error', message: string): void {
+		this.dialog.open(DialogComponent, {
+			data: {component, status, message }
+		});
+		this.dialog.afterAllClosed.subscribe(() => {
+			window.scrollTo(0, 0);
+		});
+	}
+
+	createInscription(userId: string): void {
+		const inscription: Inscription = {
+			user_id: userId,
+			activity1_id: this.inscriptionsForm.get('activity1')!.value,
+			activity2_id: this.inscriptionsForm.get('activity2')?.value == null ? undefined : this.inscriptionsForm.get('activity2')?.value,
+			activity3_id: this.inscriptionsForm.get('activity3')?.value == null ? undefined : this.inscriptionsForm.get('activity3')?.value,
+			fee: this.fee,
+			referred: this.inscriptionsForm.get('referred')!.value
+		};
+
+		this.inscriptionsService.createInscription(inscription).pipe(
+			catchError((error) => {
+				console.error("Error creating inscription: ", inscription, 'Error: ', error);
+				return throwError(() => error);
+			})
+		).subscribe({
+			next: (data: any) => {
+				this.openDialog('Status', 'success', 'Inscripción creada correctamente.');
+				console.log("Inscription created successfully: " + data);
+			},
+			error: (error) => {
+				console.error("There was an error during the inscription creation: ", error);
+			}
+		});
+		this.inscriptionsForm.reset();
 	}
 
 	onSubmit(): void {
@@ -167,6 +204,7 @@ export class InscriptionsFormComponent implements OnInit {
 			).subscribe({
 				next: (data: any) => {
 					console.log("User created successfully: " + data);
+					this.createInscription(user.user_id);
 				},
 				error: (error) => {
 					console.error("There was an error during the user creation: ", error);
@@ -181,37 +219,12 @@ export class InscriptionsFormComponent implements OnInit {
 			).subscribe({
 				next: (data: any) => {
 					console.log("User updated successfully: " + data);
+					this.createInscription(user.user_id);
 				},
 				error: (error) => {
 					console.error("There was an error during the user update: ", error);
 				}
 			});
 		}
-
-		const inscription: Inscription = {
-			user_id: user.user_id,
-			activity1_id: this.inscriptionsForm.get('activity1')!.value,
-			activity2_id: this.inscriptionsForm.get('activity2')?.value == null ? undefined : this.inscriptionsForm.get('activity2')?.value,
-			activity3_id: this.inscriptionsForm.get('activity3')?.value == null ? undefined : this.inscriptionsForm.get('activity3')?.value,
-			fee: this.fee,
-			referred: this.inscriptionsForm.get('referred')!.value
-		};
-
-		this.inscriptionsService.createInscription(inscription).pipe(
-			catchError((error) => {
-				console.error("Error creating inscription: ", inscription, 'Error: ', error);
-				return throwError(() => error);
-			})
-		).subscribe({
-			next: (data: any) => {
-				alert("Inscripción creada correctamente.");
-				console.log("Inscription created successfully: " + data);
-				window.scrollTo(0, 0);
-			},
-			error: (error) => {
-				console.error("There was an error during the inscription creation: ", error);
-			}
-		});
-		this.inscriptionsForm.reset();
 	}
 }

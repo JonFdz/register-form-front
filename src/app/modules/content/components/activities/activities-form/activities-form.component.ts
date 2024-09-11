@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ActivitiesService } from '@services/activities.service';
+import { DialogComponent } from '@sharedcontent/dialog/dialog.component';
 
 @Component({
 	selector: 'app-activities-form',
@@ -20,7 +22,8 @@ export class ActivitiesFormComponent implements OnInit {
 		private fb: FormBuilder,
 		private activitiesService: ActivitiesService,
 		private router: Router,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private dialog: MatDialog
 	) {
 		this.activitiesForm = this.fb.group({
 			activity_name: ['', Validators.required],
@@ -50,24 +53,33 @@ export class ActivitiesFormComponent implements OnInit {
 		this.activitiesForm.reset();
 	}
 
+	openDialog(component: string, status: 'success' | 'error', message: string): void {
+		this.dialog.open(DialogComponent, {
+			data: {component, status, message }
+		});
+		this.dialog.afterAllClosed.subscribe(() => {
+			window.scrollTo(0, 0);
+		});
+	}
+
 	onSubmit(): void {
 		if (this.activitiesForm.valid) {
 			if (this.activityId) {
 				this.activitiesService.updateActivity(this.activityId, this.activitiesForm.value).subscribe(() => {
-					alert('Intercambio actualizado correctamente');
+					this.openDialog('Status', 'success', 'Intercambio actualizado correctamente');
 					console.log('Activity updated');
 					this.router.navigate(['activities/']);
 				});
 			} else {
 				this.activitiesService.createActivity(this.activitiesForm.value).subscribe(() => {
-					alert('Intercambio creado correctamente');
+					this.openDialog('Status', 'success', 'Intercambio creado correctamente');
 					console.log('Activity created');
 					this.activitiesForm.reset();
 					this.router.navigate(['activities/']);
 				});
 			}
 		} else {
-			alert('Formulario no válido');
+			this.openDialog('Status', 'error', 'Formulario inválido');
 			console.log('Invalid form');
 		}
 	}
