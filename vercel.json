@@ -1,0 +1,23 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "dist/xic-project/browser/**",
+            "use": "@vercel/static"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/inscripcions/(.*)",
+            "dest": "/dist/xic-project/browser/inscripcions/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/dist/xic-project/browser/index.html"
+        }
+    ],
+    "scripts": {
+        "build": "ng build --configuration production --base-href /inscripcions/"
+    },
+    "outputDirectory": "dist/xic-project/browser"
+}
