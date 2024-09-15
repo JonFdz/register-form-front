@@ -1,0 +1,18 @@
+<div class="status-window">
+    <div class="icon-container">
+        <div class="icon exclamation">
+            <i class="bi bi-exclamation-diamond-fill"></i>
+        </div>
+    </div>
+    <div class="message-container">
+        <p>{{ message() }}</p>
+    </div>
+    <div class="button-container">
+		<button class="btn btn-secondary" (click)="onCloseDialog(false)">
+			Cancel·lar
+		</button>
+        <button class="btn btn-primary" (click)="onCloseDialog(true)">
+            Acceptar
+        </button>
+    </div>
+</div>
