@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Activity } from '@models/activity.model';
+import { environment } from 'environments/environment';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ActivitiesService {
-	private apiUrl = 'https://xicnoubarris.org/wp-json/api/v1/activities';
+	private apiUrl = environment.apiUrlActivities;
 
 	constructor(private http: HttpClient) { }
 
