@@ -125,9 +125,11 @@ export class InscriptionsFormComponent implements OnInit {
 							email: user.email,
 							abilities: user.abilities
 						});
+
+						this.highlightInvalidFields(this.inscriptionsForm);
 						this.newUser = false;
 						this.openDialog('Status', 'success', 'Usuari trobat: ' + user.user_name + ' ' + user.last_name);
-						userIdControl?.setErrors(null); // Clear errors
+						userIdControl?.setErrors(null);
 					}
 				},
 				error: (error) => {
