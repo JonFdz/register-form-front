@@ -46,11 +46,14 @@ export class ActivitiesFormComponent implements OnInit {
 	loadActivityData(activityId: number): void {
 		this.activitiesService.getActivity(activityId).subscribe((activity: any) => {
 			this.activitiesForm.patchValue(activity);
+
+			this.highlightInvalidFields(this.activitiesForm);
 		});
 	}
 
 	resetForm(): void {
 		this.activitiesForm.reset();
+		this.highlightInvalidFields(this.activitiesForm);
 	}
 
 	openDialog(component: string, status: 'success' | 'error', message: string): void {

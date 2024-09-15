@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '@models/user.model';
 
 import { UsersService } from '@services/users.service';
 import { DialogComponent } from '@sharedcontent/dialog/dialog.component';
@@ -45,17 +46,21 @@ export class UsersFormComponent implements OnInit {
 		this.userId = this.route.snapshot.paramMap.get('id');
 		if (this.userId) {
 			this.loadUserData(this.userId);
+			this.highlightInvalidFields(this.usersForm);
 		}
 	}
 
 	loadUserData(userId: string): void {
-		this.usersService.getUser(userId).subscribe((user: any) => {
+		this.usersService.getUser(userId).subscribe((user: User) => {
 			this.usersForm.patchValue(user);
+
+			this.highlightInvalidFields(this.usersForm);
 		});
 	}
 
 	resetForm(): void {
 		this.usersForm.reset();
+		this.highlightInvalidFields(this.usersForm);
 	}
 
 	openDialog(component: string, status: 'success' | 'error', message: string): void {

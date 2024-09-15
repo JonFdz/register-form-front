@@ -144,6 +144,7 @@ export class InscriptionsFormComponent implements OnInit {
 
 	resetForm(): void {
 		this.inscriptionsForm.reset();
+		this.highlightInvalidFields(this.inscriptionsForm);
 		this.newUser = true;
 	}
 
