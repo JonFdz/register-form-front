@@ -38,3 +38,4 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: /home/runner/work/xic-project-front/xic-project-front/dist/xic-project/browser/
         server-dir: /www/inscripcions/
+        delete: true
