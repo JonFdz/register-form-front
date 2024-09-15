@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '@models/user.model';
+import { environment } from 'environments/environment';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class UsersService {
-	private apiUrl = 'https://xicnoubarris.org/wp-json/api/v1/users';  // Cambia esto por la URL de tu backend
+	private apiUrl = environment.apiUrlUsers as string;
 
 	constructor(private http: HttpClient) { }
 

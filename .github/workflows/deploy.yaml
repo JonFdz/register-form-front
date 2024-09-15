@@ -25,7 +25,12 @@ jobs:
       env:
         API_URL_ACTIVITIES: ${{ secrets.API_URL_ACTIVITIES }}
       run: |
-        echo "export const environment = { production: true, apiUrlActivities: '${{ secrets.API_URL_ACTIVITIES }}' };" > src/environments/environment.ts
+        echo "export const environment = {
+        production: true,
+        apiUrlActivities: '${{ secrets.API_URL_ACTIVITIES }}',
+        apiUrlInscriptions: '${{ secrets.API_URL_INSCRIPTIONS }}'
+        apiUrlUsers: '${{ secrets.API_URL_USERS }}'
+        };" > src/environments/environment.prod.ts
         npm run prod
 
     - name: Deploy to FTP

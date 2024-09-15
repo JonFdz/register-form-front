@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Inscription } from '@models/inscription.model';
+import { environment } from 'environments/environment';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class InscriptionsService {
-	private apiUrl = 'https://xicnoubarris.org/wp-json/api/v1/inscriptions';
+	private apiUrl = environment.apiUrlInscriptions as string;
 
 	constructor(private http: HttpClient) { }
 
