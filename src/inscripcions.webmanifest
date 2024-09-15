@@ -1,0 +1,22 @@
+{
+  "name": "Inscripcions XIC Nou barris",
+  "short_name": "INSCRIPCIONS",
+  "description": "Inscripcions XIC Nou barris",
+  "icons": [
+    {
+      "src": "assets/xic_bla_app.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    // ...
+    {
+      "src": "assets/xic_bla_app.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/inscripcions/index.html",
+  "display": "fullscreen",
+  "theme_color": "#BE0D1D",
+  "background_color": "#BE0D1D"
+}
