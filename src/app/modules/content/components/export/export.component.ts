@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { InscriptionsService } from '@services/inscriptions.service';
 import { ActivitiesService } from '@services/activities.service';
@@ -14,6 +14,7 @@ import { User } from '@models/user.model';
 	selector: 'app-export',
 	standalone: true,
 	imports: [CommonModule, FormsModule],
+	providers: [DatePipe],
 	templateUrl: './export.component.html',
 	styleUrl: './export.component.scss'
 })
@@ -25,7 +26,8 @@ export class ExportComponent {
 	constructor(
 		private inscriptionsService: InscriptionsService,
 		private activitiesService: ActivitiesService,
-		private usersService: UsersService
+		private usersService: UsersService,
+		private datePipe: DatePipe
 	) { }
 
 	exportFile(): void {
@@ -85,12 +87,12 @@ export class ExportComponent {
 
 	private transformInscriptions(data: Inscription[]): any[] {
 		return data.map(inscription => ({
-			DATA: inscription.created_at,
+			DATA: this.datePipe.transform(inscription.created_at, 'dd/MM/yyyy HH:mm:ss'),
 			'DNI/NIE': inscription.user_id,
 			NOM: inscription.user_name,
 			COGNOMS: inscription.last_name,
 			GENERE: inscription.gender,
-			'DATA DE NAIXEMENT': inscription.birthdate,
+			'DATA DE NAIXEMENT': this.datePipe.transform(inscription.birthdate, 'dd/MM/yyyy'),
 			'LLOC DE NAIXEMENT': inscription.birthplace,
 			TELEFON: inscription.phone,
 			'CORREU ELECTRONIC': inscription.email,
@@ -124,7 +126,7 @@ export class ExportComponent {
 			NOM: user.user_name,
 			COGNOMS: user.last_name,
 			GENERE: user.gender,
-			'DATA DE NAIXEMENT': user.birthdate,
+			'DATA DE NAIXEMENT': this.datePipe.transform(user.birthdate, 'dd/MM/yyyy'),
 			'LLOC DE NAIXEMENT': user.birthplace,
 			TELEFON: user.phone,
 			'CORREU ELECTRONIC': user.email,
