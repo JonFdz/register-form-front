@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
-    private apiUrl = 'https://xicnoubarris.org/wp-json/jwt-auth/v1/token';
+    private apiUrl = environment.apiUrlAuth;
     public returnUrl: string = '';
 
     constructor(private http: HttpClient) { }
