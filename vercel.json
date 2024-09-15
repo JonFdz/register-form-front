@@ -1,5 +1,8 @@
 {
-	"framework": "angular",
-	"installCommand": "npm install",
-	"buildCommand": "ng build --configuration production --base-href /inscripcions/"
+    "framework": "angular",
+    "installCommand": "npm install",
+    "buildCommand": "ng build --configuration production --base-href /inscripcions/",
+    "redirects": [
+        { "source": "/*", "destination": "/index.html", "permanent": false }
+    ]
 }
