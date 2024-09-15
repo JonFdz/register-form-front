@@ -53,14 +53,16 @@ export class ExportComponent {
 
 	private exportActivities(): void {
 		this.activitiesService.getActivities().subscribe((data: Activity[]) => {
-			const transformedData = this.transformActivities(data);
+			const sortedData = data.sort((a: Activity, b: Activity) => a.activity_name.localeCompare(b.activity_name));
+			const transformedData = this.transformActivities(sortedData);
 			this.downloadCSV(transformedData, 'intercanvis.csv');
 		});
 	}
 
 	private exportUsers(): void {
 		this.usersService.getUsers().subscribe((data: User[]) => {
-			const transformedData = this.transformUsers(data);
+			const sortedData = data.sort((a: User, b: User) => a.user_id.localeCompare(b.user_id));
+			const transformedData = this.transformUsers(sortedData);
 			this.downloadCSV(transformedData, 'usuaris.csv');
 		});
 	}
@@ -83,7 +85,6 @@ export class ExportComponent {
 
 	private transformInscriptions(data: Inscription[]): any[] {
 		return data.map(inscription => ({
-			ID: inscription.inscription_id,
 			DATA: inscription.created_at,
 			'DNI/NIE': inscription.user_id,
 			NOM: inscription.user_name,
@@ -100,15 +101,14 @@ export class ExportComponent {
 			'INTERCANVI 3': inscription.activity3_name ? `${inscription.activity3_name} | ${inscription.activity3_instructor}` : '',
 			'HORARI 3': inscription.activity3_day ? `${inscription.activity3_day} de ${inscription.activity3_hour}` : '',
 			HABILITATS: inscription.abilities,
-			QUOTA: `${inscription.fee}€`,
 			INTERCANVIS: inscription.activities_selected,
+			QUOTA: `${inscription.fee}€`,
 			ACOLLIDA: inscription.referred
 		}));
 	}
 
 	private transformActivities(data: Activity[]): any[] {
 		return data.map(activity => ({
-			ID: activity.activity_id,
 			NOM: activity.activity_name,
 			'FACILITADOR/A': activity.instructor,
 			DIA: activity.day,
