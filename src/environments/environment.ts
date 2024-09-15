@@ -1,4 +1,4 @@
 export const environment = {
 	production: false,
-	apiUrlActivities: 'http://localhost:4200/api'
+	apiUrlActivities: 'http://localhost:3000/activities',
 };
