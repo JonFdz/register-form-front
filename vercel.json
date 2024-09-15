@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "angular.json",
+            "use": "@vercel/static-build",
+            "config": {
+                "distDir": "dist/xic-project/browser",
+                "buildCommand": "ng build --configuration production --base-href /inscripcions/"
+            }
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/index.html"
+        }
+    ]
+}
