@@ -1,4 +1,4 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { catchError, merge, throwError } from 'rxjs';
@@ -26,6 +26,7 @@ export class InscriptionsFormComponent implements OnInit {
 	activities: Activity[] = [];
 	referrers: User[] = []
 	fee: number = 0;
+	numberOfSelectedActivities: number = 0;
 	newUser: boolean = true;
 
 	constructor(
@@ -55,6 +56,7 @@ export class InscriptionsFormComponent implements OnInit {
 		});
 		this.activitiesService.getActivities().subscribe((data: any) => {
 			this.activities = data;
+			this.activities.sort((a: Activity, b: Activity) => a.activity_name.localeCompare(b.activity_name));
 		});
 		this.usersService.getUsers().subscribe((data: any) => {
 			this.referrers = data.filter((user: User) => user.role === 'Acollida');
@@ -65,10 +67,8 @@ export class InscriptionsFormComponent implements OnInit {
 		const activity1Changes = this.inscriptionsForm.get('activity1')!.valueChanges;
 		const activity2Changes = this.inscriptionsForm.get('activity2')!.valueChanges;
 		const activity3Changes = this.inscriptionsForm.get('activity3')!.valueChanges;
-		const activity4Changes = this.inscriptionsForm.get('activity4')!.valueChanges;
-		const activity5Changes = this.inscriptionsForm.get('activity5')!.valueChanges;
 
-		merge(activity1Changes, activity2Changes, activity3Changes, activity4Changes, activity5Changes)
+		merge(activity1Changes, activity2Changes, activity3Changes)
 			.subscribe((value) => {
 				if (value === '') {
 					this.inscriptionsForm.patchValue({
@@ -85,31 +85,30 @@ export class InscriptionsFormComponent implements OnInit {
 
 	calculateFee(): void {
 		this.fee = 0;
+		this.numberOfSelectedActivities = 0;
 
 		const selectedActivity1 = this.inscriptionsForm.get('activity1')!.value;
 		const selectedActivity2 = this.inscriptionsForm.get('activity2')!.value;
 		const selectedActivity3 = this.inscriptionsForm.get('activity3')!.value;
-		const selectedActivity4 = this.inscriptionsForm.get('activity4')!.value;
-		const selectedActivity5 = this.inscriptionsForm.get('activity5')!.value;
 
-		let numberOfSelectedActivities = 0;
-		if (selectedActivity1) numberOfSelectedActivities++;
-		if (selectedActivity2) numberOfSelectedActivities++;
-		if (selectedActivity3) numberOfSelectedActivities++;
-		if (selectedActivity4) numberOfSelectedActivities++;
-		if (selectedActivity5) numberOfSelectedActivities++;
+		if (selectedActivity1) this.numberOfSelectedActivities++;
+		if (selectedActivity2) this.numberOfSelectedActivities++;
+		if (selectedActivity3) this.numberOfSelectedActivities++;
 
-		this.fee = numberOfSelectedActivities * 5;
+		this.fee = this.numberOfSelectedActivities * 5;
 	}
 
 	checkUserId(): void {
 		const userId = this.inscriptionsForm.get('user_id')!.value;
+		const userIdControl = this.inscriptionsForm.get('user_id');
+
 		if (userId) {
 			this.usersService.getUser(userId).pipe(
 				catchError((error) => {
 					if (error.error.code === "no_user") {
 						this.openDialog('Status', 'error', "No s'han trobat dades de " + userId);
 						console.error("No user found with ID: ", userId);
+						userIdControl?.setErrors({ notFound: true });
 					}
 					console.error("Error fetching user: ", error);
 					return throwError(() => error);
@@ -129,15 +128,18 @@ export class InscriptionsFormComponent implements OnInit {
 						});
 						this.newUser = false;
 						this.openDialog('Status', 'success', 'Usuari trobat: ' + user.user_name + ' ' + user.last_name);
+						userIdControl?.setErrors(null); // Clear errors
 					}
 				},
 				error: (error) => {
 					console.error("There was an error during the user fetch: ", error);
+					userIdControl?.setErrors({ fetchError: true });
 				}
 			});
 		} else {
 			this.openDialog('Status', 'error', "Introdueixi DNI/NIE de l'usuari");
 			console.error("No user ID provided.");
+			userIdControl?.setErrors({ noId: true });
 		}
 	}
 
@@ -155,13 +157,35 @@ export class InscriptionsFormComponent implements OnInit {
 		});
 	}
 
-	createInscription(userId: string): void {
+	createInscription(user: User): void {
+		const activity1 = this.activities.find((activity: Activity) => activity.activity_id === this.inscriptionsForm.get('activity1')!.value);
+		const activity2 = this.activities.find((activity: Activity) => activity.activity_id === this.inscriptionsForm.get('activity2')?.value);
+		const activity3 = this.activities.find((activity: Activity) => activity.activity_id === this.inscriptionsForm.get('activity3')?.value);
+
 		const inscription: Inscription = {
-			user_id: userId,
-			activity1_id: this.inscriptionsForm.get('activity1')!.value,
-			activity2_id: this.inscriptionsForm.get('activity2')?.value == null ? undefined : this.inscriptionsForm.get('activity2')?.value,
-			activity3_id: this.inscriptionsForm.get('activity3')?.value == null ? undefined : this.inscriptionsForm.get('activity3')?.value,
+			user_id: user.user_id,
+			user_name: user.user_name,
+			last_name: user.last_name,
+			gender: user.gender,
+			birthdate: user.birthdate,
+			birthplace: user.birthplace,
+			phone: user.phone,
+			email: user.email?.length === 0 ? undefined : user.email,
+			activity1_name: activity1!.activity_name,
+			activity1_instructor: activity1!.instructor,
+			activity1_day: activity1!.day,
+			activity1_hour: activity1!.hour,
+			activity2_name: activity2?.activity_name,
+			activity2_instructor: activity2?.instructor,
+			activity2_day: activity2?.day,
+			activity2_hour: activity2?.hour,
+			activity3_name: activity3?.activity_name,
+			activity3_instructor: activity3?.instructor,
+			activity3_day: activity3?.day,
+			activity3_hour: activity3?.hour,
+			abilities: user.abilities?.length === 0 ? undefined : user.abilities,
 			fee: this.fee,
+			activities_selected: this.numberOfSelectedActivities,
 			referred: this.inscriptionsForm.get('referred')!.value
 		};
 
@@ -186,6 +210,25 @@ export class InscriptionsFormComponent implements OnInit {
 		Object.keys(form.controls).forEach((field) => {
 			const control = form.get(field);
 			control?.markAsTouched({ onlySelf: true });
+
+			const element = document.getElementById(field);
+			if (element) {
+				if (control?.invalid) {
+					if (control.hasError('required')) {
+						element.classList.add('error');
+						element.classList.remove('success', 'optional');
+					} else {
+						element.classList.add('optional');
+						element.classList.remove('success', 'error');
+					}
+				} else if (control?.value === null || control?.value === '') {
+					element.classList.add('optional');
+					element.classList.remove('success', 'error');
+				} else {
+					element.classList.add('success');
+					element.classList.remove('error', 'optional');
+				}
+			}
 		});
 	}
 
@@ -215,7 +258,7 @@ export class InscriptionsFormComponent implements OnInit {
 				).subscribe({
 					next: (data: any) => {
 						console.log("User created successfully: " + data);
-						this.createInscription(user.user_id);
+						this.createInscription(user);
 					},
 					error: (error) => {
 						console.error("There was an error during the user creation: ", error);
@@ -230,7 +273,7 @@ export class InscriptionsFormComponent implements OnInit {
 				).subscribe({
 					next: (data: any) => {
 						console.log("User updated successfully: " + data);
-						this.createInscription(user.user_id);
+						this.createInscription(user);
 					},
 					error: (error) => {
 						console.error("There was an error during the user update: ", error);

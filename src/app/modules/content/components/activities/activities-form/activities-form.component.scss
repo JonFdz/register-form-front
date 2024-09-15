@@ -25,9 +25,19 @@
 	}
 }
 
-.ng-invalid.ng-touched {
-	border-color: red;
-	box-shadow: 0 0 5px red;
+.success {
+    border-color: green;
+    box-shadow: 0 0 5px green;
+}
+
+.optional {
+	border-color: orange;
+    box-shadow: 0 0 5px orange;
+}
+
+.error {
+    border-color: red;
+    box-shadow: 0 0 5px red;
 }
 
 .btn-primary {

@@ -17,7 +17,7 @@ import { DialogComponent } from '@sharedcontent/dialog/dialog.component';
 export class UsersFormComponent implements OnInit {
 	usersForm: FormGroup;
 	genders: string[] = ["Home", "Dona", "Altres"];
-	roles: string[] = ["Xarxero", "Acollida", "Administrador"];
+	roles: string[] = ["Xarxero", "Acollida"];
 	userId: string | null = null;
 
 	constructor(
@@ -71,6 +71,25 @@ export class UsersFormComponent implements OnInit {
 		Object.keys(form.controls).forEach((field) => {
 			const control = form.get(field);
 			control?.markAsTouched({ onlySelf: true });
+
+			const element = document.getElementById(field);
+			if (element) {
+				if (control?.invalid) {
+					if (control.hasError('required')) {
+						element.classList.add('error');
+						element.classList.remove('success', 'optional');
+					} else {
+						element.classList.add('optional');
+						element.classList.remove('success', 'error');
+					}
+				} else if (control?.value === null || control?.value === '') {
+					element.classList.add('optional');
+					element.classList.remove('success', 'error');
+				} else {
+					element.classList.add('success');
+					element.classList.remove('error', 'optional');
+				}
+			}
 		});
 	}
 

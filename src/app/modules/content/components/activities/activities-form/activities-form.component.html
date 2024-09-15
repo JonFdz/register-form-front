@@ -25,6 +25,10 @@
                 class="form-control"
                 id="activity_name"
                 name="activity_name"
+				[ngClass]="{
+					success: !activitiesForm.get('activity_name')?.errors,
+					error: activitiesForm.get('activity_name')?.errors
+				}"
                 required
             />
         </div>
@@ -38,6 +42,10 @@
                 class="form-control"
                 id="instructor"
                 name="instructor"
+				[ngClass]="{
+					success: !activitiesForm.get('instructor')?.errors,
+					error: activitiesForm.get('instructor')?.errors
+				}"
                 required
             />
         </div>
@@ -51,6 +59,10 @@
                 class="form-control"
                 id="day"
                 name="day"
+				[ngClass]="{
+					success: !activitiesForm.get('day')?.errors,
+					error: activitiesForm.get('day')?.errors
+				}"
                 required
             />
         </div>
@@ -64,6 +76,10 @@
                 class="form-control"
                 id="hour"
                 name="hour"
+				[ngClass]="{
+					success: !activitiesForm.get('hour')?.errors,
+					error: activitiesForm.get('hour')?.errors
+				}"
                 required
             />
         </div>
@@ -75,6 +91,10 @@
                 class="form-control"
                 id="category"
                 name="category"
+				[ngClass]="{
+					success: !activitiesForm.get('category')?.errors && activitiesForm.get('category')?.touched,
+					optional: activitiesForm.get('category')?.untouched
+				}"
             />
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
@@ -84,6 +104,10 @@
                 class="form-control"
                 id="description"
                 name="description"
+				[ngClass]="{
+					success: !activitiesForm.get('description')?.errors && activitiesForm.get('description')?.touched,
+					optional: activitiesForm.get('description')?.untouched
+				}"
             ></textarea>
         </div>
         <div class="col-md-12">

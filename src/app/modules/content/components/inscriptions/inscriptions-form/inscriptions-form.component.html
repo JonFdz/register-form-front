@@ -23,6 +23,10 @@
                     class="form-control"
                     id="user_id"
                     name="user_id"
+                    [ngClass]="{
+                        success: !inscriptionsForm.get('user_id')?.errors,
+                        error: inscriptionsForm.get('user_id')?.errors
+                    }"
                     required
                 />
                 <button
@@ -45,6 +49,10 @@
                 class="form-control"
                 id="user_name"
                 name="user_name"
+                [ngClass]="{
+                    success: !inscriptionsForm.get('user_name')?.errors,
+                    error: inscriptionsForm.get('user_name')?.errors
+                }"
                 required
             />
         </div>
@@ -58,6 +66,10 @@
                 class="form-control"
                 id="last_name"
                 name="last_name"
+                [ngClass]="{
+                    success: !inscriptionsForm.get('last_name')?.errors,
+                    error: inscriptionsForm.get('last_name')?.errors
+                }"
                 required
             />
         </div>
@@ -72,6 +84,11 @@
                         id="gender"
                         name="gender"
                         [value]="gender"
+                        [ngClass]="{
+                            success: !inscriptionsForm.get('gender')?.errors,
+                            error: inscriptionsForm.get('gender')?.errors
+                        }"
+						required
                     />
                     <label class="form-check-label" for="gender">{{
                         gender
@@ -90,12 +107,18 @@
                 class="form-control"
                 id="birthdate"
                 name="birthdate"
+                [ngClass]="{
+                    success: !inscriptionsForm.get('birthdate')?.errors,
+                    error: inscriptionsForm.get('birthdate')?.errors
+                }"
                 required
             />
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
             <label for="birthplace" class="form-label"
-                >Lloc de naixement<font color="red">*</font></label
+                >Lloc de naixement (Província / País)<font color="red"
+                    >*</font
+                ></label
             >
             <input
                 formControlName="birthplace"
@@ -103,6 +126,10 @@
                 class="form-control"
                 id="birthplace"
                 name="birthplace"
+                [ngClass]="{
+                    success: !inscriptionsForm.get('birthplace')?.errors,
+                    error: inscriptionsForm.get('birthplace')?.errors
+                }"
                 required
             />
         </div>
@@ -116,6 +143,10 @@
                 class="form-control"
                 id="phone"
                 name="phone"
+                [ngClass]="{
+                    success: !inscriptionsForm.get('phone')?.errors,
+                    error: inscriptionsForm.get('phone')?.errors
+                }"
                 required
             />
         </div>
@@ -127,6 +158,10 @@
                 class="form-control"
                 id="email"
                 name="email"
+                [ngClass]="{
+                    success: !inscriptionsForm.get('email')?.errors && inscriptionsForm.get('email')?.touched,
+                    optional: inscriptionsForm.get('email')?.untouched
+                }"
             />
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
@@ -138,6 +173,10 @@
                 class="form-select"
                 id="activity1"
                 name="activity1"
+                [ngClass]="{
+                    success: !inscriptionsForm.get('activity1')?.errors,
+                    error: inscriptionsForm.get('activity1')?.errors
+                }"
                 required
             >
                 <option [value]="''">Seleccionar</option>
@@ -165,6 +204,10 @@
                 class="form-select"
                 id="activity2"
                 name="activity2"
+                [ngClass]="{
+                    success: !inscriptionsForm.get('activity2')?.errors && inscriptionsForm.get('activity2')?.touched,
+                    optional: inscriptionsForm.get('activity2')?.untouched
+                }"
             >
                 <option [value]="''">Seleccionar</option>
                 <option
@@ -191,6 +234,10 @@
                 class="form-select"
                 id="activity3"
                 name="activity3"
+                [ngClass]="{
+                    success: !inscriptionsForm.get('activity3')?.errors && inscriptionsForm.get('activity3')?.touched,
+                    optional: inscriptionsForm.get('activity3')?.untouched
+                }"
             >
                 <option [value]="''">Seleccionar</option>
                 <option
@@ -220,13 +267,14 @@
                 class="form-control"
                 id="abilities"
                 name="abilities"
-                value=""
+                [ngClass]="{
+                    success: !inscriptionsForm.get('abilities')?.errors && inscriptionsForm.get('abilities')?.touched,
+                    optional: inscriptionsForm.get('abilities')?.untouched
+                }"
             ></textarea>
         </div>
         <div class="mb-3 bg-white rounded border border-1 p-4">
-            <label class="form-label"
-                >Quota<font color="red">*</font></label
-            >
+            <label class="form-label">Quota<font color="red">*</font></label>
             <div>
                 <input
                     formControlName="fee"
@@ -255,13 +303,16 @@
                 class="form-select"
                 id="referred"
                 name="referred"
-                value="<?php echo isset($_SESSION['dni']) ? $_SESSION['dni'] : ''; ?>"
+                [ngClass]="{
+                    success: !inscriptionsForm.get('referred')?.errors,
+                    error: inscriptionsForm.get('referred')?.errors
+                }"
                 required
             >
                 <option value="">Seleccionar</option>
                 <option
                     *ngFor="let referred of referrers"
-                    [value]="referred.user_name"
+                    [value]="referred.user_name + ' ' + referred.last_name"
                 >
                     {{ referred.user_name + " " + referred.last_name }}
                 </option>
