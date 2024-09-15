@@ -108,7 +108,6 @@ export class InscriptionsFormComponent implements OnInit {
 					if (error.error.code === "no_user") {
 						this.openDialog('Status', 'error', "No s'han trobat dades de " + userId);
 						console.error("No user found with ID: ", userId);
-						userIdControl?.setErrors({ notFound: true });
 					}
 					console.error("Error fetching user: ", error);
 					return throwError(() => error);
@@ -133,13 +132,11 @@ export class InscriptionsFormComponent implements OnInit {
 				},
 				error: (error) => {
 					console.error("There was an error during the user fetch: ", error);
-					userIdControl?.setErrors({ fetchError: true });
 				}
 			});
 		} else {
 			this.openDialog('Status', 'error', "Introdueixi DNI/NIE de l'usuari");
 			console.error("No user ID provided.");
-			userIdControl?.setErrors({ noId: true });
 		}
 	}
 
@@ -209,7 +206,6 @@ export class InscriptionsFormComponent implements OnInit {
 	highlightInvalidFields(form: FormGroup) {
 		Object.keys(form.controls).forEach((field) => {
 			const control = form.get(field);
-			control?.markAsTouched({ onlySelf: true });
 
 			const element = document.getElementById(field);
 			if (element) {
@@ -217,13 +213,12 @@ export class InscriptionsFormComponent implements OnInit {
 					if (control.hasError('required')) {
 						element.classList.add('error');
 						element.classList.remove('success', 'optional');
-					} else {
-						element.classList.add('optional');
-						element.classList.remove('success', 'error');
 					}
-				} else if (control?.value === null || control?.value === '') {
+				} else if (control?.value === null || control?.value === '' || control?.value === undefined) {
 					element.classList.add('optional');
 					element.classList.remove('success', 'error');
+					control?.markAsPristine();
+					control?.markAsUntouched();
 				} else {
 					element.classList.add('success');
 					element.classList.remove('error', 'optional');

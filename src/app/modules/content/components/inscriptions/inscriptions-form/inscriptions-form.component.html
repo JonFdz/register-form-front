@@ -159,8 +159,8 @@
                 id="email"
                 name="email"
                 [ngClass]="{
-                    success: !inscriptionsForm.get('email')?.errors && inscriptionsForm.get('email')?.touched,
-                    optional: inscriptionsForm.get('email')?.untouched
+                    success: !inscriptionsForm.get('email')?.errors && inscriptionsForm.get('email')?.dirty,
+                    optional: inscriptionsForm.get('email')?.untouched || inscriptionsForm.get('email')?.pristine
                 }"
             />
         </div>
@@ -205,8 +205,8 @@
                 id="activity2"
                 name="activity2"
                 [ngClass]="{
-                    success: !inscriptionsForm.get('activity2')?.errors && inscriptionsForm.get('activity2')?.touched,
-                    optional: inscriptionsForm.get('activity2')?.untouched
+                    success: !inscriptionsForm.get('activity2')?.errors && inscriptionsForm.get('activity2')?.dirty,
+                    optional: inscriptionsForm.get('activity2')?.untouched || inscriptionsForm.get('activity2')?.pristine
                 }"
             >
                 <option [value]="''">Seleccionar</option>
@@ -235,8 +235,8 @@
                 id="activity3"
                 name="activity3"
                 [ngClass]="{
-                    success: !inscriptionsForm.get('activity3')?.errors && inscriptionsForm.get('activity3')?.touched,
-                    optional: inscriptionsForm.get('activity3')?.untouched
+                    success: !inscriptionsForm.get('activity3')?.errors && inscriptionsForm.get('activity3')?.dirty,
+                    optional: inscriptionsForm.get('activity3')?.untouched || inscriptionsForm.get('activity3')?.pristine
                 }"
             >
                 <option [value]="''">Seleccionar</option>
@@ -268,8 +268,8 @@
                 id="abilities"
                 name="abilities"
                 [ngClass]="{
-                    success: !inscriptionsForm.get('abilities')?.errors && inscriptionsForm.get('abilities')?.touched,
-                    optional: inscriptionsForm.get('abilities')?.untouched
+                    success: !inscriptionsForm.get('abilities')?.errors && inscriptionsForm.get('abilities')?.dirty,
+                    optional: inscriptionsForm.get('abilities')?.untouched || inscriptionsForm.get('abilities')?.pristine
                 }"
             ></textarea>
         </div>

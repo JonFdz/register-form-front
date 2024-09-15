@@ -70,7 +70,6 @@ export class UsersFormComponent implements OnInit {
 	highlightInvalidFields(form: FormGroup) {
 		Object.keys(form.controls).forEach((field) => {
 			const control = form.get(field);
-			control?.markAsTouched({ onlySelf: true });
 
 			const element = document.getElementById(field);
 			if (element) {
@@ -78,13 +77,12 @@ export class UsersFormComponent implements OnInit {
 					if (control.hasError('required')) {
 						element.classList.add('error');
 						element.classList.remove('success', 'optional');
-					} else {
-						element.classList.add('optional');
-						element.classList.remove('success', 'error');
 					}
-				} else if (control?.value === null || control?.value === '') {
+				} else if (control?.value === null || control?.value === '' || control?.value === undefined) {
 					element.classList.add('optional');
 					element.classList.remove('success', 'error');
+					control?.markAsPristine();
+					control?.markAsUntouched();
 				} else {
 					element.classList.add('success');
 					element.classList.remove('error', 'optional');

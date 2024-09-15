@@ -92,8 +92,8 @@
                 id="category"
                 name="category"
 				[ngClass]="{
-					success: !activitiesForm.get('category')?.errors && activitiesForm.get('category')?.touched,
-					optional: activitiesForm.get('category')?.untouched
+					success: !activitiesForm.get('category')?.errors && activitiesForm.get('category')?.dirty,
+					optional: activitiesForm.get('category')?.untouched || activitiesForm.get('category')?.pristine
 				}"
             />
         </div>
@@ -105,8 +105,8 @@
                 id="description"
                 name="description"
 				[ngClass]="{
-					success: !activitiesForm.get('description')?.errors && activitiesForm.get('description')?.touched,
-					optional: activitiesForm.get('description')?.untouched
+					success: !activitiesForm.get('description')?.errors && activitiesForm.get('description')?.dirty,
+					optional: activitiesForm.get('description')?.untouched || activitiesForm.get('description')?.pristine
 				}"
             ></textarea>
         </div>

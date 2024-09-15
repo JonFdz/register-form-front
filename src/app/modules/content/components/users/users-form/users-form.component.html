@@ -150,8 +150,8 @@
                 id="email"
                 name="email"
 				[ngClass]="{
-                    success: !usersForm.get('email')?.errors && usersForm.get('email')?.touched,
-                    optional: usersForm.get('email')?.untouched
+                    success: !usersForm.get('email')?.errors && usersForm.get('email')?.dirty,
+                    optional: usersForm.get('email')?.untouched || usersForm.get('email')?.pristine
                 }"
             />
         </div>
@@ -165,8 +165,8 @@
                 id="abilities"
                 name="abilities"
 				[ngClass]="{
-                    success: !usersForm.get('abilities')?.errors && usersForm.get('abilities')?.touched,
-                    optional: usersForm.get('abilities')?.untouched
+                    success: !usersForm.get('abilities')?.errors && usersForm.get('abilities')?.dirty,
+                    optional: usersForm.get('abilities')?.untouched || usersForm.get('abilities')?.pristine
                 }"
             ></textarea>
         </div>
@@ -178,8 +178,8 @@
                 id="role"
                 name="role"
 				[ngClass]="{
-					success: !usersForm.get('role')?.errors && usersForm.get('role')?.touched,
-					optional: usersForm.get('role')?.untouched
+					success: !usersForm.get('role')?.errors && usersForm.get('role')?.dirty,
+					optional: usersForm.get('role')?.untouched || usersForm.get('role')?.pristine
 				}"
             >
                 <option [value]="''">Seleccionar</option>
