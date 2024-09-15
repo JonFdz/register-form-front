@@ -7,6 +7,8 @@ import { UsersService } from '@services/users.service';
 import { FormsModule } from '@angular/forms';
 
 import { Inscription } from '@models/inscription.model';
+import { Activity } from '@models/activity.model';
+import { User } from '@models/user.model';
 
 @Component({
 	selector: 'app-export',
@@ -41,22 +43,25 @@ export class ExportComponent {
 	}
 
 	private exportInscriptions(): void {
-		this.inscriptionsService.getInscriptions().subscribe((data: any) => {
+		this.inscriptionsService.getInscriptions().subscribe((data: Inscription[]) => {
 			const filteredData = this.filterByDate(data);
 			const sortedData = filteredData.sort((a: Inscription, b: Inscription) => a.inscription_id! - b.inscription_id!);
-			this.downloadCSV(sortedData, 'inscripcions.csv');
+			const transformedData = this.transformInscriptions(sortedData);
+			this.downloadCSV(transformedData, 'inscripcions.csv');
 		});
 	}
 
 	private exportActivities(): void {
-		this.activitiesService.getActivities().subscribe((data: any) => {
-			this.downloadCSV(data, 'intercanvis.csv');
+		this.activitiesService.getActivities().subscribe((data: Activity[]) => {
+			const transformedData = this.transformActivities(data);
+			this.downloadCSV(transformedData, 'intercanvis.csv');
 		});
 	}
 
 	private exportUsers(): void {
-		this.usersService.getUsers().subscribe((data: any) => {
-			this.downloadCSV(data, 'usuaris.csv');
+		this.usersService.getUsers().subscribe((data: User[]) => {
+			const transformedData = this.transformUsers(data);
+			this.downloadCSV(transformedData, 'usuaris.csv');
 		});
 	}
 
@@ -74,6 +79,58 @@ export class ExportComponent {
 			const date = new Date(inscription.created_at ?? '');
 			return date >= start && date <= end;
 		});
+	}
+
+	private transformInscriptions(data: Inscription[]): any[] {
+		return data.map(inscription => ({
+			ID: inscription.inscription_id,
+			DATA: inscription.created_at,
+			'DNI/NIE': inscription.user_id,
+			NOM: inscription.user_name,
+			COGNOMS: inscription.last_name,
+			GENERE: inscription.gender,
+			'DATA DE NAIXEMENT': inscription.birthdate,
+			'LLOC DE NAIXEMENT': inscription.birthplace,
+			TELEFON: inscription.phone,
+			'CORREU ELECTRONIC': inscription.email,
+			'INTERCANVI 1': `${inscription.activity1_name} | ${inscription.activity1_instructor}`,
+			'HORARI 1': `${inscription.activity1_day} de ${inscription.activity1_hour}`,
+			'INTERCANVI 2': inscription.activity2_name ? `${inscription.activity2_name} | ${inscription.activity2_instructor}` : '',
+			'HORARI 2': inscription.activity2_day ? `${inscription.activity2_day} de ${inscription.activity2_hour}` : '',
+			'INTERCANVI 3': inscription.activity3_name ? `${inscription.activity3_name} | ${inscription.activity3_instructor}` : '',
+			'HORARI 3': inscription.activity3_day ? `${inscription.activity3_day} de ${inscription.activity3_hour}` : '',
+			HABILITATS: inscription.abilities,
+			QUOTA: `${inscription.fee}€`,
+			INTERCANVIS: inscription.activities_selected,
+			ACOLLIDA: inscription.referred
+		}));
+	}
+
+	private transformActivities(data: Activity[]): any[] {
+		return data.map(activity => ({
+			ID: activity.activity_id,
+			NOM: activity.activity_name,
+			'FACILITADOR/A': activity.instructor,
+			DIA: activity.day,
+			HORA: activity.hour,
+			CATEGORIA: activity.category,
+			DESCRIPCIO: activity.description
+		}));
+	}
+
+	private transformUsers(data: User[]): any[] {
+		return data.map(user => ({
+			'DNI/NIE': user.user_id,
+			NOM: user.user_name,
+			COGNOMS: user.last_name,
+			GENERE: user.gender,
+			'DATA DE NAIXEMENT': user.birthdate,
+			'LLOC DE NAIXEMENT': user.birthplace,
+			TELEFON: user.phone,
+			'CORREU ELECTRONIC': user.email,
+			HABILITATS: user.abilities,
+			ROL: user.role
+		}));
 	}
 
 	private downloadCSV(data: any[], filename: string): void {
