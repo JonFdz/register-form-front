@@ -40,7 +40,7 @@ export class ActivitiesListComponent implements OnInit {
 		if (this.selectedDay) {
 			this.filteredActivities = this.filteredActivities.filter((activity) => activity.day === this.selectedDay);
 		}
-		
+
 		if (this.selectedCategory) {
 			this.filteredActivities = this.filteredActivities.filter((activity) => activity.category === this.selectedCategory);
 		}

@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ActivitiesService } from '@services/activities.service';
 import { Activity } from '@models/activity.model';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '@sharedcontent/dialog/dialog.component';
 
 
 @Component({
@@ -19,13 +21,14 @@ export class ActivitiesDetailsComponent implements OnInit {
 	closeDialog = output<void>();
 
 	constructor(
-		private usersService: ActivitiesService,
-		private router: Router
+		private activitiesService: ActivitiesService,
+		private router: Router,
+		private dialog: MatDialog
 	) { }
 
 	ngOnInit(): void {
 		if (this.activityId()) {
-			this.usersService.getActivity(this.activityId()).subscribe(data => {
+			this.activitiesService.getActivity(this.activityId()).subscribe(data => {
 				this.activity = data;
 			});
 		}
@@ -36,11 +39,22 @@ export class ActivitiesDetailsComponent implements OnInit {
 	}
 
 	deleteActivity(): void {
-		if (confirm(`Estàs segur que vols eliminar l'intercanvi ${this.activity.activity_name}?`)) {
-			this.usersService.deleteActivity(this.activityId()!).subscribe(() => {
-				this.closeDialog.emit();
-			});
-		};
+		const dialogRef = this.dialog.open(DialogComponent, {
+			data: {
+				component: 'Confirm',
+				message: `Estàs segur que vols eliminar l'intercanvi ${this.activity.activity_name}?`
+			},
+			disableClose: true, // Esto deshabilita el cierre del diálogo al hacer clic fuera de él
+			hasBackdrop: true   // Esto asegura que haya un fondo detrás del diálogo
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				this.activitiesService.deleteActivity(this.activity.activity_id!).subscribe(() => {
+					this.onCloseDialog();
+				});
+			}
+		});
 	}
 
 	updateActivity(): void {
