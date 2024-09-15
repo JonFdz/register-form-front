@@ -24,6 +24,8 @@ jobs:
     - name: Build Angular project
       env:
         API_URL_ACTIVITIES: ${{ secrets.API_URL_ACTIVITIES }}
+        API_URL_INSCRIPTIONS: ${{ secrets.API_URL_INSCRIPTIONS }}
+        API_URL_USERS: ${{ secrets.API_URL_USERS }}
       run: |
         echo "export const environment = {
         production: true,
