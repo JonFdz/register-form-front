@@ -203,7 +203,7 @@ export class InscriptionsFormComponent implements OnInit {
 				console.error("There was an error during the inscription creation: ", error);
 			}
 		});
-		this.inscriptionsForm.reset();
+		this.resetForm();
 	}
 
 	highlightInvalidFields(form: FormGroup) {

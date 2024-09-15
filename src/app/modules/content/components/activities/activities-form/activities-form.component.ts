@@ -104,7 +104,6 @@ export class ActivitiesFormComponent implements OnInit {
 				this.activitiesService.createActivity(this.activitiesForm.value).subscribe(() => {
 					this.openDialog('Status', 'success', 'Intercanvi creat correctament');
 					console.log('Activity created');
-					this.activitiesForm.reset();
 					this.router.navigate(['activities/']);
 				});
 			}
