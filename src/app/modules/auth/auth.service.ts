@@ -1,30 +1,37 @@
-// auth.service.ts - Servicio de autenticación en Angular
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-	providedIn: 'root',
+    providedIn: 'root',
 })
 export class AuthService {
-	private apiUrl = 'https://xicnoubarris.org/wp-json/jwt-auth/v1/token';
-	public returnUrl: string = '';
+    private apiUrl = 'https://xicnoubarris.org/wp-json/jwt-auth/v1/token';
+    public returnUrl: string = '';
 
-	constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
 
-	login(username: string, password: string) {
-		return this.http.post(this.apiUrl, {
-			username,
-			password,
-		});
-	}
+    login(username: string, password: string) {
+        return this.http.post(this.apiUrl, {
+            username,
+            password,
+        });
+    }
 
-	isLoggedIn(): boolean {
-		// Lógica para verificar si el token está presente y válido
-		const token = localStorage.getItem('token');
-		return token != null;
-	}
+    isLoggedIn(): boolean {
+        const token = localStorage.getItem('token');
+        return token != null && !this.isTokenExpired();
+    }
 
-	logout() {
-		localStorage.removeItem('token');
-	}
+    isTokenExpired(): boolean {
+        const expiration = localStorage.getItem('tokenExpiration');
+        if (!expiration) {
+            return true;
+        }
+        return new Date() > new Date(expiration);
+    }
+
+    logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('tokenExpiration');
+    }
 }

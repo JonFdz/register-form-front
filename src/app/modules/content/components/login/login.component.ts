@@ -6,53 +6,57 @@ import { DialogComponent } from '@sharedcontent/dialog/dialog.component';
 import { AuthService } from 'app/modules/auth/auth.service';
 
 @Component({
-	selector: 'app-login',
-	standalone: true,
-	imports: [FormsModule],
-	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    standalone: true,
+    imports: [FormsModule],
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-	username: string = '';
-	password: string = '';
-	returnUrl: string = '';
+    username: string = '';
+    password: string = '';
+    returnUrl: string = '';
 
-	constructor(
-		private authService: AuthService,
-		private router: Router,
-		private dialog: MatDialog,
-	) { }
+    constructor(
+        private authService: AuthService,
+        private router: Router,
+        private dialog: MatDialog,
+    ) { }
 
-	ngOnInit(): void {
-		this.returnUrl = this.authService.returnUrl || '/';
-	}
+    ngOnInit(): void {
+        this.returnUrl = this.authService.returnUrl || '/';
+    }
 
-	openDialog(component: string, status: 'success' | 'error', message: string): void {
-		this.dialog.open(DialogComponent, {
-			data: {component, status, message }
-		});
-		this.dialog.afterAllClosed.subscribe(() => {
-			window.scrollTo(0, 0);
-		});
-	}
+    openDialog(component: string, status: 'success' | 'error', message: string): void {
+        this.dialog.open(DialogComponent, {
+            data: { component, status, message }
+        });
+        this.dialog.afterAllClosed.subscribe(() => {
+            window.scrollTo(0, 0);
+        });
+    }
 
-	onSubmit(): void {
-		this.authService.login(this.username, this.password).subscribe({
-			next: (response: any) => {
-				if (response.token) {
+    onSubmit(): void {
+        this.authService.login(this.username, this.password).subscribe({
+            next: (response: any) => {
+                if (response.token) {
+                    const expiresIn = 1000 * 60 * 10; // 10 minutes
+                    const expirationDate = new Date(new Date().getTime() + expiresIn);
 
-					localStorage.setItem('token', response.token);
-					this.router.navigateByUrl(this.returnUrl).then(() => {
-						this.returnUrl = '';
-						window.scrollTo(0, 0);
-					});
-				} else {
-					this.openDialog('Status', 'error', 'Login failed');
-				}
-			},
-			error: () => {
-				this.openDialog('Status', 'error', 'Login failed');
-			}
-		});
-	}
+                    localStorage.setItem('token', response.token);
+                    localStorage.setItem('tokenExpiration', expirationDate.toISOString());
+
+                    this.router.navigateByUrl(this.returnUrl).then(() => {
+                        this.returnUrl = '';
+                        window.scrollTo(0, 0);
+                    });
+                } else {
+                    this.openDialog('Status', 'error', 'Login failed');
+                }
+            },
+            error: () => {
+                this.openDialog('Status', 'error', 'Login failed');
+            }
+        });
+    }
 }
