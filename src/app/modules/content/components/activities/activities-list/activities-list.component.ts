@@ -29,8 +29,8 @@ export class ActivitiesListComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.activitiesService.getActivities().subscribe((data: any) => {
-			this.activities = data;
-			this.filteredActivities = data;
+			this.activities = data.sort((a: Activity, b: Activity) => a.activity_name.localeCompare(b.activity_name));
+			this.filteredActivities = data.sort((a: Activity, b: Activity) => a.activity_name.localeCompare(b.activity_name));
 		});
 	}
 

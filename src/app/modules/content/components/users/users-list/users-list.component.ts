@@ -28,8 +28,8 @@ export class UsersListComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.usersService.getUsers().subscribe((data: any) => {
-			this.users = data;
-			this.filteredUsers = data;
+			this.users = data.sort((a: User, b: User) => a.user_id.localeCompare(b.user_id));
+			this.filteredUsers = data.sort((a: User, b: User) => a.user_id.localeCompare(b.user_id));
 		});
 	}
 
