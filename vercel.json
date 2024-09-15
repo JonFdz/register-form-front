@@ -1,15 +1,5 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "dist/xic-project/browser/**",
-            "use": "@vercel/static"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/dist/xic-project/browser/index.html"
-        }
-    ]
+	"framework": "angular",
+	"installCommand": "npm install",
+	"buildCommand": "ng build --configuration production --base-href /inscripcions/"
 }
