@@ -28,7 +28,7 @@ jobs:
         API_URL_USERS: ${{ secrets.API_URL_USERS }}
         API_URL_AUTH: ${{ secrets.API_URL_AUTH }}
       run: |
-        echo "export const environment = { production: true, apiUrlActivities: '${{ secrets.API_URL_ACTIVITIES }}', apiUrlInscriptions: '${{ secrets.API_URL_INSCRIPTIONS }}', apiUrlUsers: '${{ secrets.API_URL_USERS }}, apiUrlAuth: '${{ secrets.API_URL_AUTH }}' };" > src/environments/environment.ts
+        echo "export const environment = { production: true, apiUrlActivities: '${{ secrets.API_URL_ACTIVITIES }}', apiUrlInscriptions: '${{ secrets.API_URL_INSCRIPTIONS }}', apiUrlUsers: '${{ secrets.API_URL_USERS }}', apiUrlAuth: '${{ secrets.API_URL_AUTH }}' };" > src/environments/environment.ts
         npm run prod
 
     - name: Deploy to FTP
