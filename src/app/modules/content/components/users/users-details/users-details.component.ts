@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { UsersService } from '@services/users.service';
 import { User } from '@models/user.model';
 import { Router } from '@angular/router';
+import { DialogComponent } from '@sharedcontent/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -20,7 +22,8 @@ export class UsersDetailsComponent implements OnInit {
 
 	constructor(
 		private usersService: UsersService,
-		private router: Router
+		private router: Router,
+		private dialog: MatDialog
 	) { }
 
 	ngOnInit(): void {
@@ -36,11 +39,22 @@ export class UsersDetailsComponent implements OnInit {
 	}
 
 	deleteUser(): void {
-		if (confirm(`Estàs segur que vols eliminar l'usuari ${this.user.user_id}?`)) {
-			this.usersService.deleteUser(this.userId()!).subscribe(() => {
-				this.closeDialog.emit();
-			});
-		};
+		const dialogRef = this.dialog.open(DialogComponent, {
+			data: {
+				component: 'Confirm',
+				message: `Estàs segur que vols eliminar l'usuari ${this.user.user_id}?`
+			},
+			disableClose: true,
+			hasBackdrop: true
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				this.usersService.deleteUser(this.user.user_id!).subscribe(() => {
+					this.onCloseDialog();
+				});
+			}
+		});
 	}
 
 	updateUser(): void {
