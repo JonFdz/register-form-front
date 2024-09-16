@@ -8,7 +8,7 @@ import { environment } from 'environments/environment';
 	providedIn: 'root'
 })
 export class InscriptionsService {
-	private apiUrl = environment.apiUrlInscriptions as string;
+	private apiUrl = 'https://xicnoubarris.org/wp-json/xicapi/v2/inscriptions';
 
 	constructor(private http: HttpClient) { }
 

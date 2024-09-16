@@ -9,7 +9,7 @@ import { environment } from 'environments/environment';
 	providedIn: 'root'
 })
 export class ActivitiesService {
-	private apiUrl = environment.apiUrlActivities as string;
+	private apiUrl = 'https://xicnoubarris.org/wp-json/xicapi/v2/activities';
 
 	constructor(private http: HttpClient) { }
 

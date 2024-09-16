@@ -6,7 +6,7 @@ import { environment } from 'environments/environment';
     providedIn: 'root',
 })
 export class AuthService {
-    private apiUrl = environment.apiUrlAuth;
+    private apiUrl = 'https://xicnoubarris.org/wp-json/jwt-auth/v1/token';
     public returnUrl: string = '';
 
     constructor(private http: HttpClient) { }
